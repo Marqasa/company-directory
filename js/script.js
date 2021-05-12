@@ -13,8 +13,39 @@ function ajaxRequest(url, data, success) {
 }
 
 $(window).on("load", function () {
-  const url = "libs/php/getAll.php";
-  const success = function (result) {
+  // Get all departments
+  const url1 = "libs/php/getAllDepartments.php";
+  const success1 = function (result) {
+    console.log(result);
+
+    $.each(result.data, function (i, o) {
+      $("#departments").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+    });
+  };
+
+  ajaxRequest(url1, {}, success1);
+
+  // Get all locations
+  const url2 = "libs/php/getAllLocations.php";
+  const success2 = function (result) {
+    console.log(result);
+
+    $.each(result.data, function (i, o) {
+      $("#locations").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+    });
+  };
+
+  ajaxRequest(url2, {}, success2);
+
+  // Get all employees
+  const url3 = "libs/php/getAll.php";
+  const success3 = function (result) {
+    console.log(result);
+
     $.each(result.data, function (i, o) {
       const first = "<td>" + o.firstName + "</td>";
       const last = "<td>" + o.lastName + "</td>";
@@ -23,8 +54,6 @@ $(window).on("load", function () {
       const row = "<tr>" + first + last + department + location + "</tr>";
       $("#employees").append(row);
     });
-
-    console.log(result);
   };
-  ajaxRequest(url, {}, success);
+  ajaxRequest(url3, {}, success3);
 });

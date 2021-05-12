@@ -12,6 +12,27 @@
   </head>
   <body>
     <div class="container">
+      <form>
+        <div class="my-3">
+          <input
+            id="search"
+            class="form-control"
+            type="text"
+            placeholder="Search"
+            aria-label="Search"
+          />
+        </div>
+        <select
+          id="departments"
+          class="form-select mb-3"
+          aria-label="Departments"
+        >
+          <option selected>All Departments</option>
+        </select>
+        <select id="locations" class="form-select mb-3" aria-label="Locations">
+          <option selected>All Locations</option>
+        </select>
+      </form>
       <table class="table">
         <thead>
           <tr>
