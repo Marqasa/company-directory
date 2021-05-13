@@ -12,6 +12,18 @@ function ajaxRequest(url, data, success) {
   });
 }
 
+function displayResults(results) {
+  $("#employees").empty();
+  $.each(results, function (i, o) {
+    const first = "<td>" + o.firstName + "</td>";
+    const last = "<td>" + o.lastName + "</td>";
+    const department = "<td>" + o.department + "</td>";
+    const location = "<td>" + o.location + "</td>";
+    const row = "<tr>" + first + last + department + location + "</tr>";
+    $("#employees").append(row);
+  });
+}
+
 $(window).on("load", function () {
   // Get all departments
   const url1 = "libs/php/getAllDepartments.php";
@@ -44,16 +56,44 @@ $(window).on("load", function () {
   // Get all employees
   const url3 = "libs/php/getAll.php";
   const success3 = function (result) {
-    console.log(result);
-
-    $.each(result.data, function (i, o) {
-      const first = "<td>" + o.firstName + "</td>";
-      const last = "<td>" + o.lastName + "</td>";
-      const department = "<td>" + o.department + "</td>";
-      const location = "<td>" + o.location + "</td>";
-      const row = "<tr>" + first + last + department + location + "</tr>";
-      $("#employees").append(row);
-    });
+    displayResults(result.data);
   };
+
   ajaxRequest(url3, {}, success3);
+});
+
+// Filter results
+function getFilteredResults() {
+  const url = "libs/php/filter.php";
+  const data = {
+    name: $("#search").val(),
+    departmentId: $("#departments option:selected").val(),
+    locationId: $("#locations option:selected").val(),
+  };
+
+  const success = function (result) {
+    displayResults(result.data);
+  };
+
+  ajaxRequest(url, data, success);
+}
+
+var timer;
+var delay = 250;
+
+$("#search").on("keyup", function () {
+  clearTimeout(timer);
+  timer = setTimeout(getFilteredResults, delay);
+});
+
+$("#search").on("keydown", function () {
+  clearTimeout(timer);
+});
+
+$("#departments").change(function () {
+  getFilteredResults();
+});
+
+$("#locations").change(function () {
+  getFilteredResults();
 });
