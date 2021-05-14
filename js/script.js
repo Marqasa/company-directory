@@ -19,8 +19,24 @@ function displayResults(results) {
     const last = "<td>" + o.lastName + "</td>";
     const department = "<td>" + o.department + "</td>";
     const location = "<td>" + o.location + "</td>";
-    const row = "<tr>" + first + last + department + location + "</tr>";
-    $("#employees").append(row);
+
+    const row = {};
+    row.id = o.id;
+    row.html = "<tr>" + first + last + department + location + "</tr>";
+
+    $("#employees").append(
+      $(row.html).on("click", function () {
+        $("#main").hide();
+        $("#employee").show();
+        $("#empFirst").val(o.firstName);
+        $("#empLast").val(o.lastName);
+        $("#empJob").val(o.jobTitle);
+        $("#empEmail").val(o.email);
+        $("#empDep").val(o.department);
+        $("#empLoc").val(o.location);
+        console.log(row.id);
+      })
+    );
   });
 }
 
@@ -28,8 +44,6 @@ $(window).on("load", function () {
   // Get all departments
   const url1 = "libs/php/getAllDepartments.php";
   const success1 = function (result) {
-    console.log(result);
-
     $.each(result.data, function (i, o) {
       $("#departments").append(
         '<option value="' + o.id + '">' + o.name + "</option>"
@@ -42,8 +56,6 @@ $(window).on("load", function () {
   // Get all locations
   const url2 = "libs/php/getAllLocations.php";
   const success2 = function (result) {
-    console.log(result);
-
     $.each(result.data, function (i, o) {
       $("#locations").append(
         '<option value="' + o.id + '">' + o.name + "</option>"
@@ -96,4 +108,10 @@ $("#departments").change(function () {
 
 $("#locations").change(function () {
   getFilteredResults();
+});
+
+// On back button click
+$("#back").on("click", function () {
+  $("#employee").hide();
+  $("#main").show();
 });
