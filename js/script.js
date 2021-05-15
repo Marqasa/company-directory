@@ -1,3 +1,8 @@
+// On load
+$(window).on("load", function () {
+  showMain();
+});
+
 // Generic AJAX request
 function ajaxRequest(url, data, success) {
   $.ajax({
@@ -12,7 +17,101 @@ function ajaxRequest(url, data, success) {
   });
 }
 
-function displayResults(results) {
+// Show main page
+function showMain() {
+  $("#main").show();
+  $("#employee").hide();
+
+  // Clear search term
+  $("#search").val("");
+
+  // Get all departments
+  const depUrl = "libs/php/getAllDepartments.php";
+  const depSuccess = function (result) {
+    // Clear departments
+    $("#departments").empty();
+    $("#empDep").empty();
+
+    // Set departments
+    $("#departments").append(
+      '<option value="0" selected>All Departments</option>'
+    );
+
+    $.each(result.data, function (i, o) {
+      $("#departments").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#empDep").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+    });
+  };
+
+  ajaxRequest(depUrl, {}, depSuccess);
+
+  // Get all locations
+  const url2 = "libs/php/getAllLocations.php";
+  const success2 = function (result) {
+    // Clear locations
+    $("#locations").empty();
+    $("#empLoc").empty();
+
+    // Set locations
+    $("#locations").append('<option value="0" selected>All Locations</option>');
+
+    $.each(result.data, function (i, o) {
+      $("#locations").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#empLoc").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+    });
+  };
+
+  ajaxRequest(url2, {}, success2);
+
+  // Get all employees
+  const url3 = "libs/php/getAll.php";
+  const success3 = function (result) {
+    displayEmployees(result.data);
+  };
+
+  ajaxRequest(url3, {}, success3);
+}
+
+// Show employee page
+function showEmployee() {
+  $("#main").hide();
+  $("#employee").show();
+}
+
+// Disable editing
+function disableEditing() {
+  // Display edit button
+  $("#edit").show();
+  $("#save").hide();
+
+  // Disable form editing
+  $("#empFields").prop({
+    disabled: true,
+  });
+}
+
+// Enable editing
+function enableEditing() {
+  // Display save button
+  $("#edit").hide();
+  $("#save").show();
+
+  // Enable form editing
+  $("#empFields").prop({
+    disabled: false,
+  });
+}
+
+// Display employees
+function displayEmployees(results) {
   $("#employees").empty();
   $.each(results, function (i, o) {
     const first = "<td>" + o.firstName + "</td>";
@@ -26,53 +125,20 @@ function displayResults(results) {
 
     $("#employees").append(
       $(row.html).on("click", function () {
-        $("#main").hide();
-        $("#employee").show();
+        showEmployee();
+        disableEditing();
+
+        // Set employee fields
         $("#empFirst").val(o.firstName);
         $("#empLast").val(o.lastName);
         $("#empJob").val(o.jobTitle);
         $("#empEmail").val(o.email);
-        $("#empDep").val(o.department);
-        $("#empLoc").val(o.location);
-        console.log(row.id);
+        $("#empDep").val(o.departmentId);
+        $("#empLoc").val(o.locationId);
       })
     );
   });
 }
-
-$(window).on("load", function () {
-  // Get all departments
-  const url1 = "libs/php/getAllDepartments.php";
-  const success1 = function (result) {
-    $.each(result.data, function (i, o) {
-      $("#departments").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-    });
-  };
-
-  ajaxRequest(url1, {}, success1);
-
-  // Get all locations
-  const url2 = "libs/php/getAllLocations.php";
-  const success2 = function (result) {
-    $.each(result.data, function (i, o) {
-      $("#locations").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-    });
-  };
-
-  ajaxRequest(url2, {}, success2);
-
-  // Get all employees
-  const url3 = "libs/php/getAll.php";
-  const success3 = function (result) {
-    displayResults(result.data);
-  };
-
-  ajaxRequest(url3, {}, success3);
-});
 
 // Filter results
 function getFilteredResults() {
@@ -84,7 +150,7 @@ function getFilteredResults() {
   };
 
   const success = function (result) {
-    displayResults(result.data);
+    displayEmployees(result.data);
   };
 
   ajaxRequest(url, data, success);
@@ -110,8 +176,31 @@ $("#locations").change(function () {
   getFilteredResults();
 });
 
+// On new button click
+$("#new").on("click", function () {
+  showEmployee();
+  enableEditing();
+
+  // Clear employee fields
+  $("#empFirst").val("");
+  $("#empLast").val("");
+  $("#empJob").val("");
+  $("#empEmail").val("");
+  $("#empDep").val("");
+  $("#empLoc").val("");
+});
+
 // On back button click
 $("#back").on("click", function () {
-  $("#employee").hide();
-  $("#main").show();
+  showMain();
+});
+
+// On edit button click
+$("#edit").on("click", function () {
+  enableEditing();
+});
+
+// On save button click
+$("#save").on("click", function () {
+  disableEditing();
 });

@@ -13,6 +13,9 @@
   <body>
     <!-- MAIN -->
     <div id="main" class="container">
+      <nav class="nav justify-content-end">
+        <button id="new" type="button" class="btn btn-primary my-3">New</button>
+      </nav>
       <form>
         <div class="my-3">
           <input
@@ -27,12 +30,12 @@
           id="departments"
           class="form-select mb-3"
           aria-label="Departments"
-        >
-          <option value="0" selected>All Departments</option>
-        </select>
-        <select id="locations" class="form-select mb-3" aria-label="Locations">
-          <option value="0" selected>All Locations</option>
-        </select>
+        ></select>
+        <select
+          id="locations"
+          class="form-select mb-3"
+          aria-label="Locations"
+        ></select>
       </form>
       <table class="table table-hover">
         <thead>
@@ -53,77 +56,68 @@
         <button id="back" type="button" class="btn btn-primary my-3">
           Back
         </button>
-        <button type="button" class="btn btn-primary my-3">Edit</button>
+        <button id="edit" type="button" class="btn btn-primary my-3">
+          Edit
+        </button>
+        <button id="save" type="button" class="btn btn-primary my-3">
+          Save
+        </button>
       </nav>
       <form>
-        <div class="row my-3">
-          <label for="empFirst" class="col-sm-2 col-form-label"
-            >First Name</label
-          >
-          <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control-plaintext"
-              id="empFirst"
-              readonly
-            />
+        <fieldset id="empFields">
+          <div class="row my-3">
+            <label for="empFirst" class="col-sm-2 col-form-label"
+              >First Name</label
+            >
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="empFirst" />
+            </div>
           </div>
-        </div>
-        <div class="row my-3">
-          <label for="empLast" class="col-sm-2 col-form-label">Last Name</label>
-          <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control-plaintext"
-              id="empLast"
-              readonly
-            />
+          <div class="row my-3">
+            <label for="empLast" class="col-sm-2 col-form-label"
+              >Last Name</label
+            >
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="empLast" />
+            </div>
           </div>
-        </div>
-        <div class="row my-3">
-          <label for="empJob" class="col-sm-2 col-form-label">Job Title</label>
-          <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control-plaintext"
-              id="empJob"
-              readonly
-            />
+          <div class="row my-3">
+            <label for="empJob" class="col-sm-2 col-form-label"
+              >Job Title</label
+            >
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="empJob" />
+            </div>
           </div>
-        </div>
-        <div class="row my-3">
-          <label for="empEmail" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input
-              type="email"
-              class="form-control-plaintext"
-              id="empEmail"
-              readonly
-            />
+          <div class="row my-3">
+            <label for="empEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="empEmail" />
+            </div>
           </div>
-        </div>
-        <div class="row my-3">
-          <label for="empDep" class="col-sm-2 col-form-label">Department</label>
-          <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control-plaintext"
-              id="empDep"
-              readonly
-            />
+          <div class="row my-3">
+            <label for="empDep" class="col-sm-2 col-form-label">
+              Department
+            </label>
+            <div class="col-sm-10">
+              <select
+                id="empDep"
+                class="form-select"
+                aria-label="Departments"
+              ></select>
+            </div>
           </div>
-        </div>
-        <div class="row my-3">
-          <label for="empLoc" class="col-sm-2 col-form-label">Location</label>
-          <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control-plaintext"
-              id="empLoc"
-              readonly
-            />
+          <div class="row my-3">
+            <label for="empLoc" class="col-sm-2 col-form-label">Location</label>
+            <div class="col-sm-10">
+              <select
+                id="empLoc"
+                class="form-select"
+                aria-label="Locations"
+              ></select>
+            </div>
           </div>
-        </div>
+        </fieldset>
       </form>
     </div>
   </body>
