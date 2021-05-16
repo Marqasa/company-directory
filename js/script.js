@@ -201,6 +201,6 @@ $("#edit").on("click", function () {
 });
 
 // On save button click
-$("#save").on("click", function () {
+$("#confirm").on("click", function () {
   disableEditing();
 });

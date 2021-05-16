@@ -59,9 +59,59 @@
         <button id="edit" type="button" class="btn btn-primary my-3">
           Edit
         </button>
-        <button id="save" type="button" class="btn btn-primary my-3">
+        <button
+          id="save"
+          type="button"
+          class="btn btn-primary my-3"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
           Save
         </button>
+        <div
+          class="modal fade"
+          id="staticBackdrop"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Confirm</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to save the changes?
+              </div>
+              <div class="modal-footer">
+                <button
+                  id="cancel"
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <button
+                  id="confirm"
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </nav>
       <form>
         <fieldset id="empFields">
@@ -70,7 +120,11 @@
               >First Name</label
             >
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="empFirst" />
+              <input
+                type="text"
+                class="form-control border-secondary"
+                id="empFirst"
+              />
             </div>
           </div>
           <div class="row my-3">
@@ -78,7 +132,11 @@
               >Last Name</label
             >
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="empLast" />
+              <input
+                type="text"
+                class="form-control border-secondary"
+                id="empLast"
+              />
             </div>
           </div>
           <div class="row my-3">
@@ -86,13 +144,21 @@
               >Job Title</label
             >
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="empJob" />
+              <input
+                type="text"
+                class="form-control border-secondary"
+                id="empJob"
+              />
             </div>
           </div>
           <div class="row my-3">
             <label for="empEmail" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" id="empEmail" />
+              <input
+                type="email"
+                class="form-control border-secondary"
+                id="empEmail"
+              />
             </div>
           </div>
           <div class="row my-3">
@@ -100,21 +166,37 @@
               Department
             </label>
             <div class="col-sm-10">
-              <select
-                id="empDep"
-                class="form-select"
-                aria-label="Departments"
-              ></select>
+              <div class="input-group">
+                <select
+                  id="empDep"
+                  class="form-select border-secondary"
+                  aria-label="Departments"
+                ></select>
+                <button class="btn btn-outline-secondary" type="button">
+                  Add
+                </button>
+                <button class="btn btn-outline-secondary" type="button">
+                  Remove
+                </button>
+              </div>
             </div>
           </div>
           <div class="row my-3">
             <label for="empLoc" class="col-sm-2 col-form-label">Location</label>
             <div class="col-sm-10">
-              <select
-                id="empLoc"
-                class="form-select"
-                aria-label="Locations"
-              ></select>
+              <div class="input-group">
+                <select
+                  id="empLoc"
+                  class="form-select border-secondary"
+                  aria-label="Locations"
+                ></select>
+                <button class="btn btn-outline-secondary" type="button">
+                  Add
+                </button>
+                <button class="btn btn-outline-secondary" type="button">
+                  Remove
+                </button>
+              </div>
             </div>
           </div>
         </fieldset>
