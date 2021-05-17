@@ -20,7 +20,7 @@
         <div class="my-3">
           <input
             id="search"
-            class="form-control"
+            class="form-control border"
             type="text"
             placeholder="Search"
             aria-label="Search"
@@ -28,12 +28,12 @@
         </div>
         <select
           id="departments"
-          class="form-select mb-3"
+          class="form-select border mb-3"
           aria-label="Departments"
         ></select>
         <select
           id="locations"
-          class="form-select mb-3"
+          class="form-select border mb-3"
           aria-label="Locations"
         ></select>
       </form>
@@ -120,11 +120,7 @@
               >First Name</label
             >
             <div class="col-sm-10">
-              <input
-                type="text"
-                class="form-control border-secondary"
-                id="empFirst"
-              />
+              <input type="text" class="form-control border" id="empFirst" />
             </div>
           </div>
           <div class="row my-3">
@@ -132,11 +128,7 @@
               >Last Name</label
             >
             <div class="col-sm-10">
-              <input
-                type="text"
-                class="form-control border-secondary"
-                id="empLast"
-              />
+              <input type="text" class="form-control border" id="empLast" />
             </div>
           </div>
           <div class="row my-3">
@@ -144,21 +136,13 @@
               >Job Title</label
             >
             <div class="col-sm-10">
-              <input
-                type="text"
-                class="form-control border-secondary"
-                id="empJob"
-              />
+              <input type="text" class="form-control border" id="empJob" />
             </div>
           </div>
           <div class="row my-3">
             <label for="empEmail" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-              <input
-                type="email"
-                class="form-control border-secondary"
-                id="empEmail"
-              />
+              <input type="email" class="form-control border" id="empEmail" />
             </div>
           </div>
           <div class="row my-3">
@@ -169,13 +153,21 @@
               <div class="input-group">
                 <select
                   id="empDep"
-                  class="form-select border-secondary"
+                  class="form-select border"
                   aria-label="Departments"
                 ></select>
-                <button class="btn btn-outline-secondary" type="button">
+                <button
+                  id="addDep"
+                  class="btn btn-outline-secondary border"
+                  type="button"
+                >
                   Add
                 </button>
-                <button class="btn btn-outline-secondary" type="button">
+                <button
+                  id="remDep"
+                  class="btn btn-outline-secondary border"
+                  type="button"
+                >
                   Remove
                 </button>
               </div>
@@ -187,13 +179,21 @@
               <div class="input-group">
                 <select
                   id="empLoc"
-                  class="form-select border-secondary"
+                  class="form-select border"
                   aria-label="Locations"
                 ></select>
-                <button class="btn btn-outline-secondary" type="button">
+                <button
+                  id="addLoc"
+                  class="btn btn-outline-secondary border"
+                  type="button"
+                >
                   Add
                 </button>
-                <button class="btn btn-outline-secondary" type="button">
+                <button
+                  id="remLoc"
+                  class="btn btn-outline-secondary border"
+                  type="button"
+                >
                   Remove
                 </button>
               </div>

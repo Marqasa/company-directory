@@ -1,3 +1,12 @@
 #employees tr {
   cursor: pointer;
 }
+
+*:disabled input,
+*:disabled select,
+*:disabled button {
+  color: #6c757d !important;
+  background: #e9ecef !important;
+  border-color: dee2e6 !important;
+  opacity: 1 !important;
+}
