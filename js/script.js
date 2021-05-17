@@ -1,8 +1,3 @@
-// On load
-$(window).on("load", function () {
-  showMain();
-});
-
 // Generic AJAX request
 function ajaxRequest(url, data, success) {
   $.ajax({
@@ -156,6 +151,25 @@ function getFilteredResults() {
   ajaxRequest(url, data, success);
 }
 
+// ===----------------------------------------------------------------------===
+// EVENTS
+// ===----------------------------------------------------------------------===
+
+// On load
+$(window).on("load", function () {
+  showMain();
+
+  // Remove preloader
+  if ($("#preloader").length) {
+    $("#preloader")
+      .delay(250)
+      .fadeOut("fast", function () {
+        $(this).remove();
+      });
+  }
+});
+
+// On search input
 var timer;
 var delay = 250;
 
@@ -168,10 +182,12 @@ $("#search").on("keydown", function () {
   clearTimeout(timer);
 });
 
+// On departments change
 $("#departments").change(function () {
   getFilteredResults();
 });
 
+// On locations change
 $("#locations").change(function () {
   getFilteredResults();
 });
