@@ -174,19 +174,40 @@
                   data-bs-backdrop="static"
                   data-bs-keyboard="false"
                   tabindex="-1"
+                  aria-labelledby="newDepLabel"
+                  aria-hidden="true"
                 >
                   <div class="modal-dialog">
                     <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="newDepLabel">
+                          New Department
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
                       <div class="modal-body">
                         <form>
                           <label for="newDepName" class="form-label"
-                            >Enter Department Name</label
+                            >Name</label
                           >
                           <input
                             type="text"
-                            class="form-control"
+                            class="form-control mb-3"
                             id="newDepName"
                           />
+                          <label for="newDepLoc" class="form-label"
+                            >Location</label
+                          >
+                          <select
+                            id="newDepLoc"
+                            class="form-select mb-3"
+                            aria-label="Locations"
+                          ></select>
                         </form>
                       </div>
                       <div class="modal-footer">
@@ -238,17 +259,30 @@
                   data-bs-backdrop="static"
                   data-bs-keyboard="false"
                   tabindex="-1"
+                  aria-labelledby="newLocLabel"
+                  aria-hidden="true"
                 >
                   <div class="modal-dialog">
                     <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="newLocLabel">
+                          New Location
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
                       <div class="modal-body">
                         <form>
                           <label for="newLocName" class="form-label"
-                            >Enter Location Name</label
+                            >Name</label
                           >
                           <input
                             type="text"
-                            class="form-control"
+                            class="form-control mb-3"
                             id="newLocName"
                           />
                         </form>
