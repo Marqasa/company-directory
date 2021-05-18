@@ -50,6 +50,7 @@ function showMain() {
     // Clear locations
     $("#locations").empty();
     $("#empLoc").empty();
+    $("#newDepLoc").empty();
 
     // Set locations
     $("#locations").append('<option value="0" selected>All Locations</option>');
@@ -59,6 +60,9 @@ function showMain() {
         '<option value="' + o.id + '">' + o.name + "</option>"
       );
       $("#empLoc").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#newDepLoc").append(
         '<option value="' + o.id + '">' + o.name + "</option>"
       );
     });
@@ -151,6 +155,30 @@ function getFilteredResults() {
   ajaxRequest(url, data, success);
 }
 
+// Validate forms
+function validateForms() {
+  "use strict";
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll(".needs-validation");
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms).forEach(function (form) {
+    form.addEventListener(
+      "submit",
+      function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add("was-validated");
+      },
+      false
+    );
+  });
+}
+
 // ===----------------------------------------------------------------------===
 // EVENTS
 // ===----------------------------------------------------------------------===
@@ -219,4 +247,18 @@ $("#edit").on("click", function () {
 // On save button click
 $("#confirm").on("click", function () {
   disableEditing();
+});
+
+// On save button click
+$("#newLocForm").on("submit", function (e) {
+  e.preventDefault();
+
+  if (e.target.checkValidity()) {
+    const name = $("#newLocName").val();
+    $("#newLocModal").modal("hide");
+    $("#newLocName").val("");
+    e.target.classList.remove("was-validated");
+  } else {
+    e.target.classList.add("was-validated");
+  }
 });
