@@ -89,7 +89,7 @@ function showEmployee() {
 function disableEditing() {
   // Display edit button
   $("#edit").show();
-  $("#save").hide();
+  $("#newEmpSave").hide();
 
   // Disable form editing
   $("#empFields").prop({
@@ -101,7 +101,7 @@ function disableEditing() {
 function enableEditing() {
   // Display save button
   $("#edit").hide();
-  $("#save").show();
+  $("#newEmpSave").show();
 
   // Enable form editing
   $("#empFields").prop({
@@ -244,21 +244,46 @@ $("#edit").on("click", function () {
   enableEditing();
 });
 
-// On save button click
+// On new employee save
+$("#newEmpSave").on("click", function () {
+  const form = document.getElementById("newEmpForm");
+
+  if (form.checkValidity()) {
+    $("#newEmpModal").modal("show");
+  } else {
+    form.classList.add("was-validated");
+  }
+});
+
+// On confirm save
 $("#confirm").on("click", function () {
   disableEditing();
 });
 
-// On save button click
-$("#newLocForm").on("submit", function (e) {
-  e.preventDefault();
+// On new department save
+$("#newDepSave").on("click", function () {
+  const form = document.getElementById("newDepForm");
 
-  if (e.target.checkValidity()) {
+  if (form.checkValidity()) {
+    const name = $("#newDepName").val();
+    $("#newDepModal").modal("hide");
+    $("#newDepName").val("");
+    form.classList.remove("was-validated");
+  } else {
+    form.classList.add("was-validated");
+  }
+});
+
+// On new location save
+$("#newLocSave").on("click", function () {
+  const form = document.getElementById("newLocForm");
+
+  if (form.checkValidity()) {
     const name = $("#newLocName").val();
     $("#newLocModal").modal("hide");
     $("#newLocName").val("");
-    e.target.classList.remove("was-validated");
+    form.classList.remove("was-validated");
   } else {
-    e.target.classList.add("was-validated");
+    form.classList.add("was-validated");
   }
 });

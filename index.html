@@ -14,7 +14,7 @@
     <!-- PRELOADER -->
     <div id="preloader"></div>
 
-    <!-- MAIN -->
+    <!-- MAIN PAGE -->
     <div id="main" class="container">
       <nav class="nav justify-content-end">
         <button id="new" type="button" class="btn btn-primary my-3">New</button>
@@ -53,7 +53,7 @@
       </table>
     </div>
 
-    <!-- EMPLOYEE -->
+    <!-- EMPLOYEE PAGE -->
     <div id="employee" class="container">
       <nav class="nav justify-content-between">
         <button id="back" type="button" class="btn btn-primary my-3">
@@ -63,7 +63,7 @@
           Edit
         </button>
         <button
-          id="save"
+          id="newEmpSave"
           type="button"
           class="btn btn-primary my-3"
           data-bs-toggle="modal"
@@ -71,73 +71,39 @@
         >
           Save
         </button>
-        <div
-          class="modal fade"
-          id="staticBackdrop"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Confirm</h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                Are you sure you want to save the changes?
-              </div>
-              <div class="modal-footer">
-                <button
-                  id="cancel"
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Cancel
-                </button>
-                <button
-                  id="confirm"
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-dismiss="modal"
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </nav>
-      <form>
+      <form id="newEmpForm">
         <fieldset id="empFields">
           <div class="row my-3">
-            <label for="empFirst" class="col-sm-2 col-form-label"
-              >First Name</label
-            >
+            <label for="empFirst" class="col-sm-2 col-form-label">
+              First Name
+            </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control border" id="empFirst" />
+              <input
+                type="text"
+                class="form-control border"
+                id="empFirst"
+                required
+              />
             </div>
           </div>
           <div class="row my-3">
-            <label for="empLast" class="col-sm-2 col-form-label"
-              >Last Name</label
-            >
+            <label for="empLast" class="col-sm-2 col-form-label">
+              Last Name
+            </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control border" id="empLast" />
+              <input
+                type="text"
+                class="form-control border"
+                id="empLast"
+                required
+              />
             </div>
           </div>
           <div class="row my-3">
-            <label for="empJob" class="col-sm-2 col-form-label"
-              >Job Title</label
-            >
+            <label for="empJob" class="col-sm-2 col-form-label">
+              Job Title
+            </label>
             <div class="col-sm-10">
               <input type="text" class="form-control border" id="empJob" />
             </div>
@@ -158,6 +124,7 @@
                   id="empDep"
                   class="form-select border"
                   aria-label="Departments"
+                  required
                 ></select>
                 <button
                   id="newDep"
@@ -168,63 +135,6 @@
                 >
                   New
                 </button>
-                <div
-                  class="modal fade"
-                  id="newDepModal"
-                  data-bs-backdrop="static"
-                  data-bs-keyboard="false"
-                  tabindex="-1"
-                  aria-labelledby="newDepLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="newDepLabel">
-                          New Department
-                        </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <form>
-                          <label for="newDepName" class="form-label"
-                            >Name</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control mb-3"
-                            id="newDepName"
-                          />
-                          <label for="newDepLoc" class="form-label"
-                            >Location</label
-                          >
-                          <select
-                            id="newDepLoc"
-                            class="form-select mb-3"
-                            aria-label="Locations"
-                          ></select>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          Cancel
-                        </button>
-                        <button type="button" class="btn btn-primary">
-                          Save
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <button
                   id="delDep"
                   class="btn btn-outline-secondary border"
@@ -243,6 +153,7 @@
                   id="empLoc"
                   class="form-select border"
                   aria-label="Locations"
+                  required
                 ></select>
                 <button
                   id="newLoc"
@@ -253,62 +164,6 @@
                 >
                   New
                 </button>
-                <div
-                  class="modal fade"
-                  id="newLocModal"
-                  data-bs-backdrop="static"
-                  data-bs-keyboard="false"
-                  tabindex="-1"
-                  aria-labelledby="newLocLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="newLocLabel">
-                          New Location
-                        </h5>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <form
-                          id="newLocForm"
-                          class="needs-validation"
-                          novalidate
-                        >
-                          <label for="newLocName" class="form-label"
-                            >Name</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control mb-3"
-                            id="newLocName"
-                            required
-                          />
-                          <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            id="saveNewLoc"
-                            type="submit"
-                            class="btn btn-primary ms-2"
-                          >
-                            Save
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <button
                   id="delLoc"
                   class="btn btn-outline-secondary border"
@@ -321,6 +176,160 @@
           </div>
         </fieldset>
       </form>
+    </div>
+
+    <!-- NEW EMPLOYEE MODAL -->
+    <div
+      class="modal fade"
+      id="newEmpModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Confirm</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to save the changes?
+          </div>
+          <div class="modal-footer">
+            <button
+              id="cancel"
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              id="confirm"
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW DEPARTMENT MODAL -->
+    <div
+      class="modal fade"
+      id="newDepModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="newDepLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="newDepLabel">New Department</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- BODY -->
+          <div class="modal-body">
+            <form id="newDepForm">
+              <label for="newDepName" class="form-label">Name</label>
+              <input
+                id="newDepName"
+                class="form-control mb-3"
+                type="text"
+                required
+              />
+              <label for="newDepLoc" class="form-label">Location</label>
+              <select id="newDepLoc" class="form-select mb-3" required></select>
+            </form>
+          </div>
+
+          <!-- FOOTER -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button id="newDepSave" type="button" class="btn btn-primary">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW LOCATION MODAL -->
+    <div
+      class="modal fade"
+      id="newLocModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="newLocLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="newLocLabel">New Location</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- BODY -->
+          <div class="modal-body">
+            <form id="newLocForm">
+              <label for="newLocName" class="form-label"> Name </label>
+              <input
+                type="text"
+                class="form-control mb-3"
+                id="newLocName"
+                required
+              />
+            </form>
+          </div>
+
+          <!-- FOOTER -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button id="newLocSave" type="button" class="btn btn-primary">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
