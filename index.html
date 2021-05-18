@@ -160,18 +160,56 @@
                   aria-label="Departments"
                 ></select>
                 <button
-                  id="addDep"
+                  id="newDep"
                   class="btn btn-outline-secondary border"
                   type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#newDepModal"
                 >
-                  Add
+                  New
                 </button>
+                <div
+                  class="modal fade"
+                  id="newDepModal"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <form>
+                          <label for="newDepName" class="form-label"
+                            >Enter Department Name</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="newDepName"
+                          />
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <button
-                  id="remDep"
+                  id="delDep"
                   class="btn btn-outline-secondary border"
                   type="button"
                 >
-                  Remove
+                  Delete
                 </button>
               </div>
             </div>
@@ -186,18 +224,56 @@
                   aria-label="Locations"
                 ></select>
                 <button
-                  id="addLoc"
+                  id="newLoc"
                   class="btn btn-outline-secondary border"
                   type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#newLocModal"
                 >
-                  Add
+                  New
                 </button>
+                <div
+                  class="modal fade"
+                  id="newLocModal"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabindex="-1"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <form>
+                          <label for="newLocName" class="form-label"
+                            >Enter Location Name</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="newLocName"
+                          />
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <button
-                  id="remLoc"
+                  id="delLoc"
                   class="btn btn-outline-secondary border"
                   type="button"
                 >
-                  Remove
+                  Delete
                 </button>
               </div>
             </div>
