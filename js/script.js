@@ -260,6 +260,14 @@ $("#confirm").on("click", function () {
   disableEditing();
 });
 
+// On new department
+$("#newDep").on("click", function () {
+  $("#newDepName").val("");
+  $("#newDepLoc").val("");
+  $("#newDepForm").removeClass("was-validated");
+  $("#newDepModal").modal("show");
+});
+
 // On new department save
 $("#newDepSave").on("click", function () {
   const form = document.getElementById("newDepForm");
@@ -267,11 +275,16 @@ $("#newDepSave").on("click", function () {
   if (form.checkValidity()) {
     const name = $("#newDepName").val();
     $("#newDepModal").modal("hide");
-    $("#newDepName").val("");
-    form.classList.remove("was-validated");
   } else {
     form.classList.add("was-validated");
   }
+});
+
+// On new location
+$("#newLoc").on("click", function () {
+  $("#newLocName").val("");
+  $("#newLocForm").removeClass("was-validated");
+  $("#newLocModal").modal("show");
 });
 
 // On new location save
@@ -279,10 +292,16 @@ $("#newLocSave").on("click", function () {
   const form = document.getElementById("newLocForm");
 
   if (form.checkValidity()) {
+    const url = "libs/php/insertLocation.php";
     const name = $("#newLocName").val();
+    const data = { name: name };
+    const success = function (result) {
+      console.log(result);
+    };
+
+    ajaxRequest(url, data, success);
+
     $("#newLocModal").modal("hide");
-    $("#newLocName").val("");
-    form.classList.remove("was-validated");
   } else {
     form.classList.add("was-validated");
   }
