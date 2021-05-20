@@ -6,31 +6,8 @@ function showMain() {
   // Clear search term
   $("#search").val("");
 
+  getDepartments();
   getLocations();
-
-  // Get all departments
-  const depUrl = "libs/php/getAllDepartments.php";
-  const depSuccess = function (result) {
-    // Clear departments
-    $("#departments").empty();
-    $("#empDep").empty();
-
-    // Set departments
-    $("#departments").append(
-      '<option value="0" selected>All Departments</option>'
-    );
-
-    $.each(result.data, function (i, o) {
-      $("#departments").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-      $("#empDep").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-    });
-  };
-
-  ajaxRequest(depUrl, {}, depSuccess);
 
   // Get all employees
   const url3 = "libs/php/getAll.php";
@@ -156,6 +133,38 @@ function ajaxRequest(url, data, success) {
       console.log(error);
     },
   });
+}
+
+// Get departments
+function getDepartments() {
+  const url = "libs/php/getAllDepartments.php";
+  const success = function (result) {
+    // Save currently selected department on employee page
+    const empDepID = $("#empDep option:selected").val();
+
+    // Clear departments
+    $("#departments").empty();
+    $("#empDep").empty();
+
+    // Set departments
+    $("#departments").append(
+      '<option value="0" selected>All Departments</option>'
+    );
+
+    $.each(result.data, function (i, o) {
+      $("#departments").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#empDep").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+    });
+
+    // Re-select department on employee page
+    $("#empDep").val(empDepID);
+  };
+
+  ajaxRequest(url, {}, success);
 }
 
 // Get locations
@@ -290,8 +299,25 @@ function saveNewDepartment() {
   const form = document.getElementById("newDepForm");
 
   if (form.checkValidity()) {
+    const url = "libs/php/insertDepartment.php";
     const name = $("#newDepName").val();
-    $("#newDepModal").modal("hide");
+    const locationID = $("#newDepLoc option:selected").val();
+    const data = { name: name, locationID: locationID };
+
+    const success = function (result) {
+      if (result.status.code == 200) {
+        getDepartments();
+        $("#successText").text("Department added successfully.");
+        $("#successModal").modal("show");
+        $("#newDepModal").modal("hide");
+      } else {
+        $("#errorText").text("There was an error adding the department.");
+        $("#errorModal").modal("show");
+        $("#newDepModal").modal("hide");
+      }
+    };
+
+    ajaxRequest(url, data, success);
   } else {
     form.classList.add("was-validated");
   }
