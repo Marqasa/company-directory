@@ -285,8 +285,8 @@ $("#newDep").on("click", function () {
   $("#newDepModal").modal("show");
 });
 
-// On new department save
-$("#newDepSave").on("click", function () {
+// Save new department
+function saveNewDepartment() {
   const form = document.getElementById("newDepForm");
 
   if (form.checkValidity()) {
@@ -295,6 +295,17 @@ $("#newDepSave").on("click", function () {
   } else {
     form.classList.add("was-validated");
   }
+}
+
+// On new department save
+$("#newDepSave").on("click", function () {
+  saveNewDepartment();
+});
+
+// On new department submit
+$("#newDepForm").on("submit", function (e) {
+  e.preventDefault();
+  saveNewDepartment();
 });
 
 // On new location
@@ -304,8 +315,8 @@ $("#newLoc").on("click", function () {
   $("#newLocModal").modal("show");
 });
 
-// On new location save
-$("#newLocSave").on("click", function () {
+// Save new location
+function saveNewLocation() {
   const form = document.getElementById("newLocForm");
 
   if (form.checkValidity()) {
@@ -330,6 +341,17 @@ $("#newLocSave").on("click", function () {
   } else {
     form.classList.add("was-validated");
   }
+}
+
+// On new location save click
+$("#newLocSave").on("click", function () {
+  saveNewLocation();
+});
+
+// On new location form submit
+$("#newLocForm").on("submit", function (e) {
+  e.preventDefault();
+  saveNewLocation();
 });
 
 // On delete location
@@ -339,8 +361,8 @@ $("#delLoc").on("click", function () {
   $("#delLocModal").modal("show");
 });
 
-// On confirm delete location
-$("#conDelLoc").on("click", function () {
+// Delete location
+function deleteLocation() {
   const form = document.getElementById("delLocForm");
 
   if (form.checkValidity()) {
@@ -383,4 +405,15 @@ $("#conDelLoc").on("click", function () {
   } else {
     form.classList.add("was-validated");
   }
+}
+
+// On delete location click
+$("#conDelLoc").on("click", function () {
+  deleteLocation();
+});
+
+// On delete location form submit
+$("#delLocForm").on("submit", function (e) {
+  e.preventDefault();
+  deleteLocation();
 });
