@@ -315,11 +315,14 @@ $("#newLocSave").on("click", function () {
 
     const success = function (result) {
       if (result.status.code == 200) {
-        alert("Location added successfully.");
         getLocations();
+        $("#successText").text("Location added successfully.");
+        $("#successModal").modal("show");
         $("#newLocModal").modal("hide");
       } else {
-        alert("There was an error adding the location.");
+        $("#errorText").text("There was an error adding the location.");
+        $("#errorModal").modal("show");
+        $("#newLocModal").modal("hide");
       }
     };
 
@@ -349,9 +352,11 @@ $("#conDelLoc").on("click", function () {
     const success = function (result) {
       if (result.data.length > 0) {
         // Warn location cannot be deleted
-        alert(
+        $("#delLocModal").modal("hide");
+        $("#warningText").text(
           "Cannot delete locations while departments are assigned to them."
         );
+        $("#warningModal").modal("show");
       } else {
         // Delete location
         const url = "libs/php/deleteLocationByID.php";
@@ -359,11 +364,14 @@ $("#conDelLoc").on("click", function () {
 
         const success = function (result) {
           if (result.status.code == 200) {
-            alert("Location deleted successfully.");
             getLocations();
+            $("#successText").text("Location deleted successfully.");
+            $("#successModal").modal("show");
             $("#delLocModal").modal("hide");
           } else {
-            alert("There was an error deleting the location.");
+            $("#errorText").text("There was an error deleting the location.");
+            $("#errorModal").modal("show");
+            $("#delLocModal").modal("hide");
           }
         };
 
