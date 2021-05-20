@@ -1,17 +1,3 @@
-// Generic AJAX request
-function ajaxRequest(url, data, success) {
-  $.ajax({
-    url: url,
-    type: "POST",
-    dataType: "json",
-    data: data,
-    success: success,
-    error: function (request, status, error) {
-      console.log(error);
-    },
-  });
-}
-
 // Show main page
 function showMain() {
   $("#main").show();
@@ -19,6 +5,8 @@ function showMain() {
 
   // Clear search term
   $("#search").val("");
+
+  getLocations();
 
   // Get all departments
   const depUrl = "libs/php/getAllDepartments.php";
@@ -43,32 +31,6 @@ function showMain() {
   };
 
   ajaxRequest(depUrl, {}, depSuccess);
-
-  // Get all locations
-  const url2 = "libs/php/getAllLocations.php";
-  const success2 = function (result) {
-    // Clear locations
-    $("#locations").empty();
-    $("#empLoc").empty();
-    $("#newDepLoc").empty();
-
-    // Set locations
-    $("#locations").append('<option value="0" selected>All Locations</option>');
-
-    $.each(result.data, function (i, o) {
-      $("#locations").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-      $("#empLoc").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-      $("#newDepLoc").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-    });
-  };
-
-  ajaxRequest(url2, {}, success2);
 
   // Get all employees
   const url3 = "libs/php/getAll.php";
@@ -177,6 +139,61 @@ function validateForms() {
       false
     );
   });
+}
+// ===----------------------------------------------------------------------===
+// AJAX
+// ===----------------------------------------------------------------------===
+
+// Generic
+function ajaxRequest(url, data, success) {
+  $.ajax({
+    url: url,
+    type: "POST",
+    dataType: "json",
+    data: data,
+    success: success,
+    error: function (request, status, error) {
+      console.log(error);
+    },
+  });
+}
+
+// Get locations
+function getLocations() {
+  const url = "libs/php/getAllLocations.php";
+  const success = function (result) {
+    // Save currently selected location on employee page
+    const empLocID = $("#empLoc option:selected").val();
+
+    // Clear locations
+    $("#locations").empty();
+    $("#empLoc").empty();
+    $("#newDepLoc").empty();
+    $("#delLocName").empty();
+
+    // Set locations
+    $("#locations").append('<option value="0" selected>All Locations</option>');
+
+    $.each(result.data, function (i, o) {
+      $("#locations").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#empLoc").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#newDepLoc").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#delLocName").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+    });
+
+    // Re-select location on employee page
+    $("#empLoc").val(empLocID);
+  };
+
+  ajaxRequest(url, {}, success);
 }
 
 // ===----------------------------------------------------------------------===
@@ -295,13 +312,66 @@ $("#newLocSave").on("click", function () {
     const url = "libs/php/insertLocation.php";
     const name = $("#newLocName").val();
     const data = { name: name };
+
     const success = function (result) {
-      console.log(result);
+      if (result.status.code == 200) {
+        alert("Location added successfully.");
+        getLocations();
+        $("#newLocModal").modal("hide");
+      } else {
+        alert("There was an error adding the location.");
+      }
     };
 
     ajaxRequest(url, data, success);
+  } else {
+    form.classList.add("was-validated");
+  }
+});
 
-    $("#newLocModal").modal("hide");
+// On delete location
+$("#delLoc").on("click", function () {
+  $("#delLocName").val("");
+  $("#delLocForm").removeClass("was-validated");
+  $("#delLocModal").modal("show");
+});
+
+// On confirm delete location
+$("#conDelLoc").on("click", function () {
+  const form = document.getElementById("delLocForm");
+
+  if (form.checkValidity()) {
+    // Check location can be deleted
+    const url = "libs/php/getDepartmentsByLocationID.php";
+    const locationID = $("#delLocName option:selected").val();
+    const data = { locationID: locationID };
+
+    const success = function (result) {
+      if (result.data.length > 0) {
+        // Warn location cannot be deleted
+        alert(
+          "Cannot delete locations while departments are assigned to them."
+        );
+      } else {
+        // Delete location
+        const url = "libs/php/deleteLocationByID.php";
+        const data = { id: locationID };
+
+        const success = function (result) {
+          if (result.status.code == 200) {
+            alert("Location deleted successfully.");
+            getLocations();
+            $("#delLocModal").modal("hide");
+          } else {
+            alert("There was an error deleting the location.");
+          }
+        };
+
+        ajaxRequest(url, data, success);
+      }
+    };
+
+    ajaxRequest(url, data, success);
   } else {
     form.classList.add("was-validated");
   }

@@ -327,6 +327,58 @@
         </div>
       </div>
     </div>
+
+    <!-- DELETE LOCATION MODAL -->
+    <div
+      class="modal fade"
+      id="delLocModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="delLocLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="delLocLabel">Delete Location</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- BODY -->
+          <div class="modal-body">
+            <form id="delLocForm">
+              <label for="delLocName" class="form-label">Name</label>
+              <select
+                id="delLocName"
+                class="form-select mb-3"
+                required
+              ></select>
+            </form>
+          </div>
+
+          <!-- FOOTER -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button id="conDelLoc" type="button" class="btn btn-primary">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="vendor/jquery/jquery-2.2.3.min.js"></script>
