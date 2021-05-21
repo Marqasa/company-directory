@@ -15,7 +15,7 @@
     <div id="preloader"></div>
 
     <!-- MAIN PAGE -->
-    <div id="main" class="container">
+    <div id="mainPage" class="container">
       <nav class="nav justify-content-end">
         <button id="mainNew" type="button" class="btn btn-primary my-3">
           New
@@ -32,12 +32,12 @@
           />
         </div>
         <select
-          id="departments"
+          id="mainDeps"
           class="form-select border mb-3"
           aria-label="Departments"
         ></select>
         <select
-          id="locations"
+          id="mainLocs"
           class="form-select border mb-3"
           aria-label="Locations"
         ></select>
@@ -51,15 +51,15 @@
             <th scope="col">Location</th>
           </tr>
         </thead>
-        <tbody id="employees"></tbody>
+        <tbody id="mainEmps"></tbody>
       </table>
     </div>
 
     <!-- EMPLOYEE PAGE -->
-    <div id="employee" class="container">
+    <div id="empPage" class="container">
       <nav class="nav justify-content-between">
         <div>
-          <button id="back" type="button" class="btn btn-primary my-3">
+          <button id="empBack" type="button" class="btn btn-primary my-3">
             Back
           </button>
         </div>
@@ -69,6 +69,13 @@
           </button>
           <button id="empEdit" type="button" class="btn btn-primary my-3">
             Edit
+          </button>
+          <button
+            id="empCancel"
+            type="button"
+            class="btn btn-primary my-3 me-1"
+          >
+            Cancel
           </button>
           <button id="empSave" type="button" class="btn btn-primary my-3">
             Save
@@ -118,13 +125,13 @@
             </div>
           </div>
           <div class="row my-3">
-            <label for="empDep" class="col-sm-2 col-form-label">
+            <label for="empDeps" class="col-sm-2 col-form-label">
               Department
             </label>
             <div class="col-sm-10">
               <div class="input-group">
                 <select
-                  id="empDep"
+                  id="empDeps"
                   class="form-select border"
                   aria-label="Departments"
                   required
@@ -147,11 +154,13 @@
             </div>
           </div>
           <div class="row my-3">
-            <label for="empLoc" class="col-sm-2 col-form-label">Location</label>
+            <label for="empLocs" class="col-sm-2 col-form-label">
+              Location
+            </label>
             <div class="col-sm-10">
               <div class="input-group">
                 <select
-                  id="empLoc"
+                  id="empLocs"
                   class="form-select border"
                   aria-label="Locations"
                   required

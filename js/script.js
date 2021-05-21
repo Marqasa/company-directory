@@ -1,203 +1,10 @@
-// Show main page
-function showMain() {
-  $("#main").show();
-  $("#employee").hide();
-
-  // Clear search term
-  $("#search").val("");
-
-  getDepartments();
-  getLocations();
-
-  // Get all employees
-  const url3 = "libs/php/getAll.php";
-  const success3 = function (result) {
-    displayEmployees(result.data);
-  };
-
-  ajaxRequest(url3, {}, success3);
-}
-
-// Show employee page
-function showEmployee() {
-  $("#main").hide();
-  $("#employee").show();
-}
-
-// Disable editing
-function disableEditing() {
-  // Display edit button
-  $("#empEdit").show();
-  $("#empSave").hide();
-
-  // Disable form editing
-  $("#empFields").prop({
-    disabled: true,
-  });
-}
-
-// Enable editing
-function enableEditing() {
-  // Display save button
-  $("#empEdit").hide();
-  $("#empSave").show();
-
-  // Enable form editing
-  $("#empFields").prop({
-    disabled: false,
-  });
-
-  $("#newEmpForm").removeClass("was-validated");
-}
-
-// Display employees
-function displayEmployees(results) {
-  $("#employees").empty();
-  $.each(results, function (i, o) {
-    const first = "<td>" + o.firstName + "</td>";
-    const last = "<td>" + o.lastName + "</td>";
-    const department = "<td>" + o.department + "</td>";
-    const location = "<td>" + o.location + "</td>";
-
-    const row = {};
-    row.id = o.id;
-    row.html = "<tr>" + first + last + department + location + "</tr>";
-
-    $("#employees").append(
-      $(row.html).on("click", function () {
-        showEmployee();
-        disableEditing();
-
-        // Show new employee button
-        $("#empNew").show();
-
-        // Set employee fields
-        $("#empFirst").val(o.firstName);
-        $("#empLast").val(o.lastName);
-        $("#empJob").val(o.jobTitle);
-        $("#empEmail").val(o.email);
-        $("#empDep").val(o.departmentId);
-        $("#empLoc").val(o.locationId);
-      })
-    );
-  });
-}
-
-// Filter results
-function getFilteredResults() {
-  const url = "libs/php/filter.php";
-  const data = {
-    name: $("#search").val(),
-    departmentId: $("#departments option:selected").val(),
-    locationId: $("#locations option:selected").val(),
-  };
-
-  const success = function (result) {
-    displayEmployees(result.data);
-  };
-
-  ajaxRequest(url, data, success);
-}
-
 // ===----------------------------------------------------------------------===
-// AJAX
+// GENERAL
 // ===----------------------------------------------------------------------===
 
-// Generic
-function ajaxRequest(url, data, success) {
-  $.ajax({
-    url: url,
-    type: "POST",
-    dataType: "json",
-    data: data,
-    success: success,
-    error: function (request, status, error) {
-      console.log(error);
-    },
-  });
-}
-
-// Get departments
-function getDepartments() {
-  const url = "libs/php/getAllDepartments.php";
-  const success = function (result) {
-    // Save currently selected department on employee page
-    const empDepID = $("#empDep option:selected").val();
-
-    // Clear departments
-    $("#departments").empty();
-    $("#empDep").empty();
-    $("#delDepName").empty();
-
-    // Set departments
-    $("#departments").append(
-      '<option value="0" selected>All Departments</option>'
-    );
-
-    $.each(result.data, function (i, o) {
-      $("#departments").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-      $("#empDep").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-      $("#delDepName").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-    });
-
-    // Re-select department on employee page
-    $("#empDep").val(empDepID);
-  };
-
-  ajaxRequest(url, {}, success);
-}
-
-// Get locations
-function getLocations() {
-  const url = "libs/php/getAllLocations.php";
-  const success = function (result) {
-    // Save currently selected location on employee page
-    const empLocID = $("#empLoc option:selected").val();
-
-    // Clear locations
-    $("#locations").empty();
-    $("#empLoc").empty();
-    $("#newDepLoc").empty();
-    $("#delLocName").empty();
-
-    // Set locations
-    $("#locations").append('<option value="0" selected>All Locations</option>');
-
-    $.each(result.data, function (i, o) {
-      $("#locations").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-      $("#empLoc").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-      $("#newDepLoc").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-      $("#delLocName").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-    });
-
-    // Re-select location on employee page
-    $("#empLoc").val(empLocID);
-  };
-
-  ajaxRequest(url, {}, success);
-}
-
-// ===----------------------------------------------------------------------===
-// EVENTS
-// ===----------------------------------------------------------------------===
-
-// On load
+// ON LOAD
 $(window).on("load", function () {
-  showMain();
+  showMainPage();
 
   // Remove preloader
   if ($("#preloader").length) {
@@ -209,73 +16,310 @@ $(window).on("load", function () {
   }
 });
 
-// On search input
-var timer;
-var delay = 250;
+// ===----------------------------------------------------------------------===
+// AJAX
+// ===----------------------------------------------------------------------===
+
+// GENERIC REQUEST
+function ajaxRequest(url, data, success) {
+  $.ajax({
+    url: url,
+    type: "POST",
+    dataType: "json",
+    data: data,
+    success: success,
+    error: function (request, status, error) {},
+  });
+}
+
+// GET DEPARTMENTS
+function getDepartments() {
+  const url = "libs/php/getAllDepartments.php";
+  const success = function (result) {
+    // Save currently selected department on employee page
+    const empDepID = $("#empDeps option:selected").val();
+
+    // Clear departments
+    $("#mainDeps").empty();
+    $("#empDeps").empty();
+    $("#delDepName").empty();
+
+    // Set departments
+    $("#mainDeps").append(
+      '<option value="0" selected>All Departments</option>'
+    );
+
+    $.each(result.data, function (i, o) {
+      $("#mainDeps").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#empDeps").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#delDepName").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+    });
+
+    // Re-select department on employee page
+    $("#empDeps").val(empDepID);
+  };
+
+  ajaxRequest(url, {}, success);
+}
+
+// GET LOCATIONS
+function getLocations() {
+  const url = "libs/php/getAllLocations.php";
+  const success = function (result) {
+    // Save currently selected location on employee page
+    const empLocID = $("#empLocs option:selected").val();
+
+    // Clear locations
+    $("#mainLocs").empty();
+    $("#empLocs").empty();
+    $("#newDepLoc").empty();
+    $("#delLocName").empty();
+
+    // Set locations
+    $("#mainLocs").append('<option value="0" selected>All Locations</option>');
+
+    $.each(result.data, function (i, o) {
+      $("#mainLocs").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#empLocs").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#newDepLoc").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#delLocName").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+    });
+
+    // Re-select location on employee page
+    $("#empLocs").val(empLocID);
+  };
+
+  ajaxRequest(url, {}, success);
+}
+
+// GET PERSONNEL
+function getPersonnel() {
+  const url = "libs/php/getAll.php";
+  const success = function (result) {
+    showEmployees(result.data);
+  };
+
+  ajaxRequest(url, {}, success);
+}
+
+// GET FILTERED PERSONNEL
+function getFilteredPersonnel() {
+  const url = "libs/php/getFilteredPersonnel.php";
+  const data = {
+    name: $("#search").val(),
+    departmentId: $("#mainDeps option:selected").val(),
+    locationId: $("#mainLocs option:selected").val(),
+  };
+
+  const success = function (result) {
+    showEmployees(result.data);
+  };
+
+  ajaxRequest(url, data, success);
+}
+
+// ===----------------------------------------------------------------------===
+// MAIN PAGE
+// ===----------------------------------------------------------------------===
+
+// SHOW MAIN PAGE
+function showMainPage() {
+  $("#mainPage").show();
+  $("#empPage").hide();
+
+  // Clear search term
+  $("#search").val("");
+
+  getDepartments();
+  getLocations();
+  getPersonnel();
+}
+
+// SHOW EMPLOYEES
+function showEmployees(results) {
+  $("#mainEmps").empty();
+
+  $.each(results, function (i, o) {
+    const first = "<td>" + o.firstName + "</td>";
+    const last = "<td>" + o.lastName + "</td>";
+    const department = "<td>" + o.department + "</td>";
+    const location = "<td>" + o.location + "</td>";
+
+    const row = "<tr>" + first + last + department + location + "</tr>";
+
+    $("#mainEmps").append(
+      $(row).on("click", function () {
+        showEmployeePage();
+        showEmployee(
+          o.id,
+          o.firstName,
+          o.lastName,
+          o.jobTitle,
+          o.email,
+          o.departmentId,
+          o.locationId
+        );
+      })
+    );
+  });
+}
+
+// ON MAIN NEW
+$("#mainNew").on("click", function () {
+  showEmployeePage();
+  newEmployee();
+});
+
+// ON SEARCH INPUT
+let timer;
+let delay = 250;
 
 $("#search").on("keyup", function () {
   clearTimeout(timer);
-  timer = setTimeout(getFilteredResults, delay);
+  timer = setTimeout(getFilteredPersonnel, delay);
 });
 
 $("#search").on("keydown", function () {
   clearTimeout(timer);
 });
 
-// On departments change
-$("#departments").change(function () {
-  getFilteredResults();
+// ON DEPARTMENTS CHANGE
+$("#mainDeps").change(function () {
+  getFilteredPersonnel();
 });
 
-// On locations change
-$("#locations").change(function () {
-  getFilteredResults();
+// ON LOCATIONS CHANGE
+$("#mainLocs").change(function () {
+  getFilteredPersonnel();
 });
 
-// On main new button click
-$("#mainNew").on("click", function () {
-  showEmployee();
-  enableEditing();
+// ===----------------------------------------------------------------------===
+// EMPLOYEE PAGE
+// ===----------------------------------------------------------------------===
 
-  // Hide new employee button
+// CURRENT EMPLOYEE FIELDS
+let eId;
+let eFirst;
+let eLast;
+let eJob;
+let eEmail;
+let eDepartment;
+let eLocation;
+
+// SHOW EMPLOYEE PAGE
+function showEmployeePage() {
+  $("#mainPage").hide();
+  $("#empPage").show();
+}
+
+// NEW EMPLOYEE
+function newEmployee() {
   $("#empNew").hide();
+  $("#empEdit").hide();
+  $("#empCancel").hide();
+  $("#empSave").show();
 
-  // Clear employee fields
   $("#empFirst").val("");
   $("#empLast").val("");
   $("#empJob").val("");
   $("#empEmail").val("");
-  $("#empDep").val("");
-  $("#empLoc").val("");
+  $("#empDeps").val("");
+  $("#empLocs").val("");
+
+  enableEditing();
+}
+
+// SET EMPLOYEE FIELDS
+function setEmployeeFields() {
+  $("#empFirst").val(eFirst);
+  $("#empLast").val(eLast);
+  $("#empJob").val(eJob);
+  $("#empEmail").val(eEmail);
+  $("#empDeps").val(eDepartment);
+  $("#empLocs").val(eLocation);
+}
+
+// SHOW EMPLOYEE
+function showEmployee(id, first, last, job, email, department, location) {
+  $("#empCancel").hide();
+  $("#empSave").hide();
+  $("#empNew").show();
+  $("#empEdit").show();
+
+  eId = id;
+  eFirst = first;
+  eLast = last;
+  eJob = job;
+  eEmail = email;
+  eDepartment = department;
+  eLocation = location;
+
+  setEmployeeFields();
+  disableEditing();
+}
+
+// EDIT EMPLOYEE
+function editEmployee() {
+  $("#empNew").hide();
+  $("#empEdit").hide();
+  $("#empCancel").show();
+  $("#empSave").show();
+
+  enableEditing();
+}
+
+// ENABLE EDITING
+function enableEditing() {
+  $("#empFields").prop({ disabled: false });
+  $("#newEmpForm").removeClass("was-validated");
+}
+
+// DISABLE EDITING
+function disableEditing() {
+  $("#empFields").prop({ disabled: true });
+}
+
+// ON EMP BACK
+$("#empBack").on("click", function () {
+  showMainPage();
 });
 
-// On emp new button click
+// ON EMP NEW
 $("#empNew").on("click", function () {
-  // Hide employee new button
-  $("#empNew").hide();
-
-  // Clear employee fields
-  $("#empFirst").val("");
-  $("#empLast").val("");
-  $("#empJob").val("");
-  $("#empEmail").val("");
-  $("#empDep").val("");
-  $("#empLoc").val("");
-
-  enableEditing();
+  newEmployee();
 });
 
-// On back button click
-$("#back").on("click", function () {
-  showMain();
-});
-
-// On edit button click
+// ON EMP EDIT
 $("#empEdit").on("click", function () {
-  enableEditing();
+  editEmployee();
 });
 
-// On new employee save
+// ON EMP CANCEL
+$("#empCancel").on("click", function () {
+  $("#empCancel").hide();
+  $("#empSave").hide();
+  $("#empNew").show();
+  $("#empEdit").show();
+
+  setEmployeeFields();
+  disableEditing();
+});
+
+// ON EMP SAVE
 $("#empSave").on("click", function () {
   const form = document.getElementById("newEmpForm");
 
@@ -292,7 +336,7 @@ $("#confirm").on("click", function () {
 });
 
 // ===----------------------------------------------------------------------===
-// NEW DEPARTMENT
+// NEW DEPARTMENT MODAL
 // ===----------------------------------------------------------------------===
 
 // On new department
@@ -345,7 +389,7 @@ $("#newDepForm").on("submit", function (e) {
 });
 
 // ===----------------------------------------------------------------------===
-// DELETE DEPARTMENT
+// DELETE DEPARTMENT MODAL
 // ===----------------------------------------------------------------------===
 
 // On delete department
@@ -414,7 +458,7 @@ $("#conDelDep").on("click", function () {
 });
 
 // ===----------------------------------------------------------------------===
-// NEW LOCATION
+// NEW LOCATION MODAL
 // ===----------------------------------------------------------------------===
 
 // On new location
@@ -465,7 +509,7 @@ $("#newLocForm").on("submit", function (e) {
 });
 
 // ===----------------------------------------------------------------------===
-// DELETE LOCATION
+// DELETE LOCATION MODAL
 // ===----------------------------------------------------------------------===
 
 // On delete location
