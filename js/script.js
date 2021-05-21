@@ -28,7 +28,7 @@ function showEmployee() {
 function disableEditing() {
   // Display edit button
   $("#edit").show();
-  $("#newEmpSave").hide();
+  $("#empSave").hide();
 
   // Disable form editing
   $("#empFields").prop({
@@ -40,12 +40,14 @@ function disableEditing() {
 function enableEditing() {
   // Display save button
   $("#edit").hide();
-  $("#newEmpSave").show();
+  $("#empSave").show();
 
   // Enable form editing
   $("#empFields").prop({
     disabled: false,
   });
+
+  $("#newEmpForm").removeClass("was-validated");
 }
 
 // Display employees
@@ -94,29 +96,6 @@ function getFilteredResults() {
   ajaxRequest(url, data, success);
 }
 
-// Validate forms
-function validateForms() {
-  "use strict";
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll(".needs-validation");
-
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms).forEach(function (form) {
-    form.addEventListener(
-      "submit",
-      function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-
-        form.classList.add("was-validated");
-      },
-      false
-    );
-  });
-}
 // ===----------------------------------------------------------------------===
 // AJAX
 // ===----------------------------------------------------------------------===
@@ -145,6 +124,7 @@ function getDepartments() {
     // Clear departments
     $("#departments").empty();
     $("#empDep").empty();
+    $("#delDepName").empty();
 
     // Set departments
     $("#departments").append(
@@ -156,6 +136,9 @@ function getDepartments() {
         '<option value="' + o.id + '">' + o.name + "</option>"
       );
       $("#empDep").append(
+        '<option value="' + o.id + '">' + o.name + "</option>"
+      );
+      $("#delDepName").append(
         '<option value="' + o.id + '">' + o.name + "</option>"
       );
     });
@@ -271,7 +254,7 @@ $("#edit").on("click", function () {
 });
 
 // On new employee save
-$("#newEmpSave").on("click", function () {
+$("#empSave").on("click", function () {
   const form = document.getElementById("newEmpForm");
 
   if (form.checkValidity()) {
@@ -285,6 +268,10 @@ $("#newEmpSave").on("click", function () {
 $("#confirm").on("click", function () {
   disableEditing();
 });
+
+// ===----------------------------------------------------------------------===
+// NEW DEPARTMENT
+// ===----------------------------------------------------------------------===
 
 // On new department
 $("#newDep").on("click", function () {
@@ -307,6 +294,7 @@ function saveNewDepartment() {
     const success = function (result) {
       if (result.status.code == 200) {
         getDepartments();
+
         $("#successText").text("Department added successfully.");
         $("#successModal").modal("show");
         $("#newDepModal").modal("hide");
@@ -334,6 +322,79 @@ $("#newDepForm").on("submit", function (e) {
   saveNewDepartment();
 });
 
+// ===----------------------------------------------------------------------===
+// DELETE DEPARTMENT
+// ===----------------------------------------------------------------------===
+
+// On delete department
+$("#delDep").on("click", function () {
+  $("#delDepName").val("");
+  $("#delDepForm").removeClass("was-validated");
+  $("#delDepModal").modal("show");
+});
+
+// Delete department
+function deleteDepartment() {
+  const form = document.getElementById("delDepForm");
+
+  if (form.checkValidity()) {
+    // Check department can be deleted
+    const url = "libs/php/getPersonnelByDepartmentID.php";
+    const departmentId = $("#delDepName option:selected").val();
+    const data = { departmentId: departmentId };
+
+    const success = function (result) {
+      if (result.data.length > 0) {
+        // Warn department cannot be deleted
+        $("#warningText").text(
+          "Cannot delete departments while they have personnel assigned."
+        );
+        $("#warningModal").modal("show");
+        $("#delDepModal").modal("hide");
+      } else {
+        // Delete department
+        const url = "libs/php/deleteDepartmentByID.php";
+        const data = { id: departmentId };
+
+        const success = function (result) {
+          if (result.status.code == 200) {
+            getDepartments();
+
+            $("#successText").text("Department deleted successfully.");
+            $("#successModal").modal("show");
+            $("#delDepModal").modal("hide");
+          } else {
+            $("#errorText").text("There was an error deleting the department.");
+            $("#errorModal").modal("show");
+            $("#delDepModal").modal("hide");
+          }
+        };
+
+        ajaxRequest(url, data, success);
+      }
+    };
+
+    ajaxRequest(url, data, success);
+  } else {
+    form.classList.add("was-validated");
+  }
+}
+
+// Submit delete department
+$("#delDepForm").on("submit", function (e) {
+  e.preventDefault();
+  deleteDepartment();
+});
+
+// Confirm delete department
+$("#conDelDep").on("click", function () {
+  deleteDepartment();
+});
+
+// ===----------------------------------------------------------------------===
+// NEW LOCATION
+// ===----------------------------------------------------------------------===
+
 // On new location
 $("#newLoc").on("click", function () {
   $("#newLocName").val("");
@@ -353,6 +414,7 @@ function saveNewLocation() {
     const success = function (result) {
       if (result.status.code == 200) {
         getLocations();
+
         $("#successText").text("Location added successfully.");
         $("#successModal").modal("show");
         $("#newLocModal").modal("hide");
@@ -379,6 +441,10 @@ $("#newLocForm").on("submit", function (e) {
   e.preventDefault();
   saveNewLocation();
 });
+
+// ===----------------------------------------------------------------------===
+// DELETE LOCATION
+// ===----------------------------------------------------------------------===
 
 // On delete location
 $("#delLoc").on("click", function () {
