@@ -27,7 +27,7 @@ function showEmployee() {
 // Disable editing
 function disableEditing() {
   // Display edit button
-  $("#edit").show();
+  $("#empEdit").show();
   $("#empSave").hide();
 
   // Disable form editing
@@ -39,7 +39,7 @@ function disableEditing() {
 // Enable editing
 function enableEditing() {
   // Display save button
-  $("#edit").hide();
+  $("#empEdit").hide();
   $("#empSave").show();
 
   // Enable form editing
@@ -67,6 +67,9 @@ function displayEmployees(results) {
       $(row.html).on("click", function () {
         showEmployee();
         disableEditing();
+
+        // Show new employee button
+        $("#empNew").show();
 
         // Set employee fields
         $("#empFirst").val(o.firstName);
@@ -229,10 +232,13 @@ $("#locations").change(function () {
   getFilteredResults();
 });
 
-// On new button click
-$("#new").on("click", function () {
+// On main new button click
+$("#mainNew").on("click", function () {
   showEmployee();
   enableEditing();
+
+  // Hide new employee button
+  $("#empNew").hide();
 
   // Clear employee fields
   $("#empFirst").val("");
@@ -243,13 +249,29 @@ $("#new").on("click", function () {
   $("#empLoc").val("");
 });
 
+// On emp new button click
+$("#empNew").on("click", function () {
+  // Hide employee new button
+  $("#empNew").hide();
+
+  // Clear employee fields
+  $("#empFirst").val("");
+  $("#empLast").val("");
+  $("#empJob").val("");
+  $("#empEmail").val("");
+  $("#empDep").val("");
+  $("#empLoc").val("");
+
+  enableEditing();
+});
+
 // On back button click
 $("#back").on("click", function () {
   showMain();
 });
 
 // On edit button click
-$("#edit").on("click", function () {
+$("#empEdit").on("click", function () {
   enableEditing();
 });
 

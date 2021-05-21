@@ -17,7 +17,9 @@
     <!-- MAIN PAGE -->
     <div id="main" class="container">
       <nav class="nav justify-content-end">
-        <button id="new" type="button" class="btn btn-primary my-3">New</button>
+        <button id="mainNew" type="button" class="btn btn-primary my-3">
+          New
+        </button>
       </nav>
       <form>
         <div class="my-3">
@@ -56,15 +58,22 @@
     <!-- EMPLOYEE PAGE -->
     <div id="employee" class="container">
       <nav class="nav justify-content-between">
-        <button id="back" type="button" class="btn btn-primary my-3">
-          Back
-        </button>
-        <button id="edit" type="button" class="btn btn-primary my-3">
-          Edit
-        </button>
-        <button id="empSave" type="button" class="btn btn-primary my-3">
-          Save
-        </button>
+        <div>
+          <button id="back" type="button" class="btn btn-primary my-3">
+            Back
+          </button>
+        </div>
+        <div>
+          <button id="empNew" type="button" class="btn btn-primary my-3 me-1">
+            New
+          </button>
+          <button id="empEdit" type="button" class="btn btn-primary my-3">
+            Edit
+          </button>
+          <button id="empSave" type="button" class="btn btn-primary my-3">
+            Save
+          </button>
+        </div>
       </nav>
       <form id="newEmpForm">
         <fieldset id="empFields">
