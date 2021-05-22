@@ -213,14 +213,14 @@ $("#mainLocs").change(function () {
 // EMPLOYEE PAGE
 // ===----------------------------------------------------------------------===
 
-// CURRENT EMPLOYEE FIELDS
-let eId;
-let eFirst;
-let eLast;
-let eJob;
-let eEmail;
-let eDepartment;
-let eLocation;
+// EMPLOYEE DATA
+let empId;
+let empFirstName;
+let empLastName;
+let empJobTitle;
+let empEmail;
+let empDepartmentId;
+let empLocationId;
 
 // SHOW EMPLOYEE PAGE
 function showEmployeePage() {
@@ -230,19 +230,19 @@ function showEmployeePage() {
 
 // NEW EMPLOYEE
 function newEmployee() {
+  empId = 0;
+  empFirstName = "";
+  empLastName = "";
+  empJobTitle = "";
+  empEmail = "";
+  empDepartmentId = "";
+  empLocationId = "";
+
   $("#empNew").hide();
   $("#empEdit").hide();
   $("#empCancel").hide();
   $("#empDel").hide();
   $("#empSave").show();
-
-  eId = 0;
-  eFirst = "";
-  eLast = "";
-  eJob = "";
-  eEmail = "";
-  eDepartment = "";
-  eLocation = "";
 
   setEmployeeFields();
   enableEditing();
@@ -250,19 +250,19 @@ function newEmployee() {
 
 // SHOW EMPLOYEE
 function showEmployee(id, first, last, job, email, department, location) {
+  empId = id;
+  empFirstName = first;
+  empLastName = last;
+  empJobTitle = job;
+  empEmail = email;
+  empDepartmentId = department;
+  empLocationId = location;
+
   $("#empCancel").hide();
   $("#empSave").hide();
   $("#empDel").hide();
   $("#empNew").show();
   $("#empEdit").show();
-
-  eId = id;
-  eFirst = first;
-  eLast = last;
-  eJob = job;
-  eEmail = email;
-  eDepartment = department;
-  eLocation = location;
 
   setEmployeeFields();
   disableEditing();
@@ -270,12 +270,12 @@ function showEmployee(id, first, last, job, email, department, location) {
 
 // SET EMPLOYEE FIELDS
 function setEmployeeFields() {
-  $("#empFirst").val(eFirst);
-  $("#empLast").val(eLast);
-  $("#empJob").val(eJob);
-  $("#empEmail").val(eEmail);
-  $("#empDeps").val(eDepartment);
-  $("#empLocs").val(eLocation);
+  $("#empFirst").val(empFirstName);
+  $("#empLast").val(empLastName);
+  $("#empJob").val(empJobTitle);
+  $("#empEmail").val(empEmail);
+  $("#empDeps").val(empDepartmentId);
+  $("#empLocs").val(empLocationId);
 }
 
 // EDIT EMPLOYEE
@@ -341,9 +341,9 @@ $("#empSave").on("click", function () {
 // ON SAVE EMP CONFIRM
 $("#saveEmpConfirm").on("click", function () {
   const url = "libs/php/getDepartmentAndLocationByID.php";
-  eDepartment = $("#empDeps option:selected").val();
-  eLocation = $("#empLocs option:selected").val();
-  const data = { departmentId: eDepartment, locationId: eLocation };
+  const departmentId = $("#empDeps option:selected").val();
+  const locationId = $("#empLocs option:selected").val();
+  const data = { departmentId: departmentId, locationId: locationId };
 
   const success = function (result) {
     if (result.data.length == 0) {
@@ -354,33 +354,47 @@ $("#saveEmpConfirm").on("click", function () {
       $("#warningModal").modal("show");
       $("#saveEmpModal").modal("hide");
     } else {
-      if (eId == 0) {
+      if (empId == 0) {
         const url = "libs/php/insertEmployee.php";
-        eFirst = $("#empFirst").val();
-        eLast = $("#empLast").val();
-        eJob = $("#empJob").val();
-        eEmail = $("#empEmail").val();
+        const firstName = $("#empFirst").val();
+        const lastName = $("#empLast").val();
+        const jobTitle = $("#empJob").val();
+        const email = $("#empEmail").val();
 
         const data = {
-          firstName: eFirst,
-          lastName: eLast,
-          jobTitle: eJob,
-          email: eEmail,
-          departmentId: eDepartment,
+          firstName: firstName,
+          lastName: lastName,
+          jobTitle: jobTitle,
+          email: email,
+          departmentId: departmentId,
         };
 
         const success = function (result) {
-          eId = result.data[0].id;
+          console.log(result);
 
-          $("#empSave").hide();
-          $("#empNew").show();
-          $("#empEdit").show();
+          if (result.status.code == 200) {
+            const e = result.data[0];
 
-          $("#successText").text("Employee added successfully.");
-          $("#successModal").modal("show");
-          $("#saveEmpModal").modal("hide");
+            showEmployee(
+              e.id,
+              e.firstName,
+              e.lastName,
+              e.jobTitle,
+              e.email,
+              e.departmentId,
+              e.locationId
+            );
 
-          disableEditing();
+            $("#saveEmpModal").modal("hide");
+
+            $("#successText").text("Employee added successfully.");
+            $("#successModal").modal("show");
+          } else {
+            $("#saveEmpModal").modal("hide");
+
+            $("#errorText").text("There was an error adding the employee.");
+            $("#errorModal").modal("show");
+          }
         };
 
         ajaxRequest(url, data, success);
@@ -401,7 +415,7 @@ $("#empDel").on("click", function () {
 // ON CONFIRM DELETE EMPLOYEE
 $("#empDelConfirm").on("click", function () {
   const url = "libs/php/deleteEmployeeByID.php";
-  const data = { id: eId };
+  const data = { id: empId };
 
   const success = function (result) {
     if (result.status.code == 200) {
@@ -487,7 +501,7 @@ $("#delDep").on("click", function () {
 });
 
 // Delete department
-function deleteDepartment() {
+function deletempDepartmentId() {
   const form = document.getElementById("delDepForm");
 
   if (form.checkValidity()) {
@@ -506,7 +520,7 @@ function deleteDepartment() {
         $("#delDepModal").modal("hide");
       } else {
         // Delete department
-        const url = "libs/php/deleteDepartmentByID.php";
+        const url = "libs/php/deletempDepartmentIdByID.php";
         const data = { id: departmentId };
 
         const success = function (result) {
@@ -536,12 +550,12 @@ function deleteDepartment() {
 // Submit delete department
 $("#delDepForm").on("submit", function (e) {
   e.preventDefault();
-  deleteDepartment();
+  deletempDepartmentId();
 });
 
 // Confirm delete department
 $("#conDelDep").on("click", function () {
-  deleteDepartment();
+  deletempDepartmentId();
 });
 
 // ===----------------------------------------------------------------------===
@@ -607,7 +621,7 @@ $("#delLoc").on("click", function () {
 });
 
 // Delete location
-function deleteLocation() {
+function deletempLocationId() {
   const form = document.getElementById("delLocForm");
 
   if (form.checkValidity()) {
@@ -626,7 +640,7 @@ function deleteLocation() {
         $("#warningModal").modal("show");
       } else {
         // Delete location
-        const url = "libs/php/deleteLocationByID.php";
+        const url = "libs/php/deletempLocationIdByID.php";
         const data = { id: locationID };
 
         const success = function (result) {
@@ -654,11 +668,11 @@ function deleteLocation() {
 
 // On delete location click
 $("#conDelLoc").on("click", function () {
-  deleteLocation();
+  deletempLocationId();
 });
 
 // On delete location form submit
 $("#delLocForm").on("submit", function (e) {
   e.preventDefault();
-  deleteLocation();
+  deletempLocationId();
 });
