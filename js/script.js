@@ -28,7 +28,9 @@ function ajaxRequest(url, data, success) {
     dataType: "json",
     data: data,
     success: success,
-    error: function (request, status, error) {},
+    error: function (request, status, error) {
+      console.log(error);
+    },
   });
 }
 
@@ -233,24 +235,16 @@ function newEmployee() {
   $("#empCancel").hide();
   $("#empSave").show();
 
-  $("#empFirst").val("");
-  $("#empLast").val("");
-  $("#empJob").val("");
-  $("#empEmail").val("");
-  $("#empDeps").val("");
-  $("#empLocs").val("");
+  eId = 0;
+  eFirst = "";
+  eLast = "";
+  eJob = "";
+  eEmail = "";
+  eDepartment = "";
+  eLocation = "";
 
+  setEmployeeFields();
   enableEditing();
-}
-
-// SET EMPLOYEE FIELDS
-function setEmployeeFields() {
-  $("#empFirst").val(eFirst);
-  $("#empLast").val(eLast);
-  $("#empJob").val(eJob);
-  $("#empEmail").val(eEmail);
-  $("#empDeps").val(eDepartment);
-  $("#empLocs").val(eLocation);
 }
 
 // SHOW EMPLOYEE
@@ -270,6 +264,16 @@ function showEmployee(id, first, last, job, email, department, location) {
 
   setEmployeeFields();
   disableEditing();
+}
+
+// SET EMPLOYEE FIELDS
+function setEmployeeFields() {
+  $("#empFirst").val(eFirst);
+  $("#empLast").val(eLast);
+  $("#empJob").val(eJob);
+  $("#empEmail").val(eEmail);
+  $("#empDeps").val(eDepartment);
+  $("#empLocs").val(eLocation);
 }
 
 // EDIT EMPLOYEE
@@ -324,15 +328,65 @@ $("#empSave").on("click", function () {
   const form = document.getElementById("newEmpForm");
 
   if (form.checkValidity()) {
-    $("#newEmpModal").modal("show");
+    $("#saveEmpModal").modal("show");
   } else {
     form.classList.add("was-validated");
   }
 });
 
-// On confirm save
-$("#confirm").on("click", function () {
-  disableEditing();
+// ON SAVE EMP CONFIRM
+$("#saveEmpConfirm").on("click", function () {
+  const url = "libs/php/getDepartmentAndLocationByID.php";
+  eDepartment = $("#empDeps option:selected").val();
+  eLocation = $("#empLocs option:selected").val();
+  const data = { departmentId: eDepartment, locationId: eLocation };
+
+  const success = function (result) {
+    if (result.data.length == 0) {
+      // Warn department and location don't match
+      $("#warningText").text(
+        "The selected department does not exist at the selected location."
+      );
+      $("#warningModal").modal("show");
+      $("#saveEmpModal").modal("hide");
+    } else {
+      if (eId == 0) {
+        const url = "libs/php/insertEmployee.php";
+        eFirst = $("#empFirst").val();
+        eLast = $("#empLast").val();
+        eJob = $("#empJob").val();
+        eEmail = $("#empEmail").val();
+
+        const data = {
+          firstName: eFirst,
+          lastName: eLast,
+          jobTitle: eJob,
+          email: eEmail,
+          departmentId: eDepartment,
+        };
+
+        const success = function (result) {
+          eId = result.data[0].id;
+
+          $("#empSave").hide();
+          $("#empNew").show();
+          $("#empEdit").show();
+
+          $("#successText").text("Employee added successfully.");
+          $("#successModal").modal("show");
+          $("#saveEmpModal").modal("hide");
+
+          disableEditing();
+        };
+
+        ajaxRequest(url, data, success);
+      } else {
+        // Update
+      }
+    }
+  };
+
+  ajaxRequest(url, data, success);
 });
 
 // ===----------------------------------------------------------------------===
