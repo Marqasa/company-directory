@@ -1,3 +1,4 @@
 /vendor
-/libs
+/libs/sql
+/libs/php/config.php
 .DS_Store
