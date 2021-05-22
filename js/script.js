@@ -354,12 +354,13 @@ $("#saveEmpConfirm").on("click", function () {
       $("#warningModal").modal("show");
       $("#saveEmpModal").modal("hide");
     } else {
+      const firstName = $("#empFirst").val();
+      const lastName = $("#empLast").val();
+      const jobTitle = $("#empJob").val();
+      const email = $("#empEmail").val();
+
       if (empId == 0) {
         const url = "libs/php/insertEmployee.php";
-        const firstName = $("#empFirst").val();
-        const lastName = $("#empLast").val();
-        const jobTitle = $("#empJob").val();
-        const email = $("#empEmail").val();
 
         const data = {
           firstName: firstName,
@@ -370,8 +371,6 @@ $("#saveEmpConfirm").on("click", function () {
         };
 
         const success = function (result) {
-          console.log(result);
-
           if (result.status.code == 200) {
             const e = result.data[0];
 
@@ -399,7 +398,44 @@ $("#saveEmpConfirm").on("click", function () {
 
         ajaxRequest(url, data, success);
       } else {
-        // Update
+        const url = "libs/php/updateEmployeeByID.php";
+
+        const data = {
+          id: empId,
+          firstName: firstName,
+          lastName: lastName,
+          jobTitle: jobTitle,
+          email: email,
+          departmentId: departmentId,
+        };
+
+        const success = function (result) {
+          if (result.status.code == 200) {
+            const e = result.data[0];
+
+            showEmployee(
+              e.id,
+              e.firstName,
+              e.lastName,
+              e.jobTitle,
+              e.email,
+              e.departmentId,
+              e.locationId
+            );
+
+            $("#saveEmpModal").modal("hide");
+
+            $("#successText").text("Employee updated successfully.");
+            $("#successModal").modal("show");
+          } else {
+            $("#saveEmpModal").modal("hide");
+
+            $("#errorText").text("There was an error updating the employee.");
+            $("#errorModal").modal("show");
+          }
+        };
+
+        ajaxRequest(url, data, success);
       }
     }
   };
