@@ -393,6 +393,35 @@ $("#saveEmpConfirm").on("click", function () {
   ajaxRequest(url, data, success);
 });
 
+// ON DELETE EMPLOYEE
+$("#empDel").on("click", function () {
+  $("#empDelModal").modal("show");
+});
+
+// ON CONFIRM DELETE EMPLOYEE
+$("#empDelConfirm").on("click", function () {
+  const url = "libs/php/deleteEmployeeByID.php";
+  const data = { id: eId };
+
+  const success = function (result) {
+    if (result.status.code == 200) {
+      newEmployee();
+
+      $("#empDelModal").modal("hide");
+
+      $("#successText").text("Employee deleted successfully.");
+      $("#successModal").modal("show");
+    } else {
+      $("#empDelModal").modal("hide");
+
+      $("#errorText").text("There was an error deleting the employee.");
+      $("#errorModal").modal("show");
+    }
+  };
+
+  ajaxRequest(url, data, success);
+});
+
 // ===----------------------------------------------------------------------===
 // NEW DEPARTMENT MODAL
 // ===----------------------------------------------------------------------===
