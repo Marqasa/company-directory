@@ -233,6 +233,7 @@ function newEmployee() {
   $("#empNew").hide();
   $("#empEdit").hide();
   $("#empCancel").hide();
+  $("#empDel").hide();
   $("#empSave").show();
 
   eId = 0;
@@ -251,6 +252,7 @@ function newEmployee() {
 function showEmployee(id, first, last, job, email, department, location) {
   $("#empCancel").hide();
   $("#empSave").hide();
+  $("#empDel").hide();
   $("#empNew").show();
   $("#empEdit").show();
 
@@ -282,6 +284,7 @@ function editEmployee() {
   $("#empEdit").hide();
   $("#empCancel").show();
   $("#empSave").show();
+  $("#empDel").show();
 
   enableEditing();
 }
@@ -316,6 +319,7 @@ $("#empEdit").on("click", function () {
 $("#empCancel").on("click", function () {
   $("#empCancel").hide();
   $("#empSave").hide();
+  $("#empDel").hide();
   $("#empNew").show();
   $("#empEdit").show();
 
