@@ -156,12 +156,15 @@ function showEmployees(results) {
   $("#mainEmps").empty();
 
   $.each(results, function (i, o) {
-    const first = "<td>" + o.firstName + "</td>";
-    const last = "<td>" + o.lastName + "</td>";
-    const department = "<td>" + o.department + "</td>";
-    const location = "<td>" + o.location + "</td>";
+    const first = "<td class='col-1'>" + o.firstName + "</td>";
+    const last = "<td class='col-2'>" + o.lastName + "</td>";
+    const email = "<td class='col-3'>" + o.email + "</td>";
+    const job = "<td class='col-4'>" + o.jobTitle + "</td>";
+    const department = "<td class='col-5'>" + o.department + "</td>";
+    const location = "<td class='col-6'>" + o.location + "</td>";
 
-    const row = "<tr>" + first + last + department + location + "</tr>";
+    const row =
+      "<tr>" + first + last + email + job + department + location + "</tr>";
 
     $("#mainEmps").append(
       $(row).on("click", function () {
