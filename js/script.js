@@ -352,7 +352,7 @@ $("#saveEmpConfirm").on("click", function () {
     if (result.data.length == 0) {
       // Warn department and location don't match
       $("#warningText").text(
-        "The selected department does not exist at the selected location."
+        "The selected department does not exist at that location."
       );
       $("#warningModal").modal("show");
       $("#saveEmpModal").modal("hide");
@@ -559,7 +559,7 @@ function deletempDepartmentId() {
         $("#delDepModal").modal("hide");
       } else {
         // Delete department
-        const url = "libs/php/deletempDepartmentIdByID.php";
+        const url = "libs/php/deleteDepartmentByID.php";
         const data = { id: departmentId };
 
         const success = function (result) {
@@ -679,7 +679,7 @@ function deletempLocationId() {
         $("#warningModal").modal("show");
       } else {
         // Delete location
-        const url = "libs/php/deletempLocationIdByID.php";
+        const url = "libs/php/deleteLocationByID.php";
         const data = { id: locationID };
 
         const success = function (result) {
