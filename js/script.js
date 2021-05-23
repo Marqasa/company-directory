@@ -48,19 +48,22 @@ function getDepartments() {
 
     // Set departments
     $("#mainDeps").append(
-      '<option value="0" selected>All Departments</option>'
+      '<option value="0" data-loc="0" selected>All Departments</option>'
     );
 
     $.each(result.data, function (i, o) {
-      $("#mainDeps").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-      $("#empDeps").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
-      $("#delDepName").append(
-        '<option value="' + o.id + '">' + o.name + "</option>"
-      );
+      const option =
+        '<option value="' +
+        o.id +
+        '" data-loc="' +
+        o.locationID +
+        '">' +
+        o.name +
+        "</option>";
+
+      $("#mainDeps").append(option);
+      $("#empDeps").append(option);
+      $("#delDepName").append(option);
     });
 
     // Re-select department on employee page
@@ -204,6 +207,9 @@ $("#search").on("keydown", function () {
 
 // ON DEPARTMENTS CHANGE
 $("#mainDeps").change(function () {
+  const locationId = $("#mainDeps option:selected").data("loc");
+  $("#mainLocs").val(locationId);
+
   getFilteredPersonnel();
 });
 
@@ -473,6 +479,13 @@ $("#empDelConfirm").on("click", function () {
   };
 
   ajaxRequest(url, data, success);
+});
+
+// ON EMPLOYEE DEPARTMENT CHANGE
+$("#empDeps").change(function () {
+  const locationId = $("#empDeps option:selected").data("loc");
+
+  $("#empLocs").val(locationId);
 });
 
 // ===----------------------------------------------------------------------===
