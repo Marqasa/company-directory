@@ -208,7 +208,10 @@ $("#search").on("keydown", function () {
 // ON DEPARTMENTS CHANGE
 $("#mainDeps").change(function () {
   const locationId = $("#mainDeps option:selected").data("loc");
-  $("#mainLocs").val(locationId);
+
+  if (locationId > 0) {
+    $("#mainLocs").val(locationId);
+  }
 
   getFilteredPersonnel();
 });
