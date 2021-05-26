@@ -4,9 +4,7 @@
 
 // ON LOAD
 $(window).on("load", function () {
-  getPersonnel();
-  getDepartments();
-  getLocations();
+  getData();
 
   // Remove preloader
   if ($("#preloader").length) {
@@ -36,31 +34,13 @@ function ajaxRequest(url, data, success) {
   });
 }
 
-// GET PERSONNEL
-function getPersonnel() {
+// GET DATA
+function getData() {
   const url = "libs/php/getAll.php";
   const success = function (result) {
-    showPersonnel(result.data);
-  };
-
-  ajaxRequest(url, {}, success);
-}
-
-// GET DEPARTMENTS
-function getDepartments() {
-  const url = "libs/php/getAllDepartments.php";
-  const success = function (result) {
-    showDepartments(result.data);
-  };
-
-  ajaxRequest(url, {}, success);
-}
-
-// GET LOCATIONS
-function getLocations() {
-  const url = "libs/php/getAllLocations.php";
-  const success = function (result) {
-    showLocations(result.data);
+    showPersonnel(result.data.personnel);
+    showDepartments(result.data.departments);
+    showLocations(result.data.locations);
   };
 
   ajaxRequest(url, {}, success);
@@ -75,6 +55,7 @@ function showPersonnel(data) {
   $("#personnel").empty();
 
   $.each(data, function (i, o) {
+    const id = o.id;
     const first = "<td>" + o.firstName + "</td>";
     const last = "<td>" + o.lastName + "</td>";
     const email = "<td>" + o.email + "</td>";
@@ -82,7 +63,16 @@ function showPersonnel(data) {
     const department = "<td>" + o.department + "</td>";
     const location = "<td>" + o.location + "</td>";
     const row =
-      "<tr>" + first + last + email + job + department + location + "</tr>";
+      '<tr data-id="' +
+      id +
+      '">' +
+      first +
+      last +
+      email +
+      job +
+      department +
+      location +
+      "</tr>";
 
     $("#personnel").append(row);
   });
@@ -93,9 +83,10 @@ function showDepartments(data) {
   $("#departments").empty();
 
   $.each(data, function (i, o) {
+    const id = o.id;
     const name = "<td>" + o.name + "</td>";
     const location = "<td>" + o.location + "</td>";
-    const row = "<tr>" + name + location + "</tr>";
+    const row = '<tr data-id="' + id + '">' + name + location + "</tr>";
 
     $("#departments").append(row);
   });
@@ -106,8 +97,9 @@ function showLocations(data) {
   $("#locations").empty();
 
   $.each(data, function (i, o) {
+    const id = o.id;
     const name = "<td>" + o.name + "</td>";
-    const row = "<tr>" + name + "</tr>";
+    const row = '<tr data-id="' + id + '">' + name + "</tr>";
 
     $("#locations").append(row);
   });
