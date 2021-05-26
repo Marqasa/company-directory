@@ -1,16 +1,3 @@
-#mainEmps tr {
-  cursor: pointer;
-}
-
-*:disabled input,
-*:disabled select,
-*:disabled button {
-  color: #6c757d !important;
-  background: #e9ecef !important;
-  border-color: dee2e6 !important;
-  opacity: 1 !important;
-}
-
 /* Preloader */
 #preloader {
   position: fixed;
@@ -57,56 +44,4 @@
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-}
-
-/* Small devices (landscape phones, 576px and up) */
-@media (max-width: 576px) {
-  th.col-3,
-  td.col-3 {
-    display: none;
-    width: 0;
-    height: 0;
-    opacity: 0;
-    visibility: collapse;
-  }
-}
-
-/* // Medium devices (tablets, 768px and up) */
-@media (max-width: 768px) {
-  th.col-4,
-  td.col-4 {
-    display: none;
-    width: 0;
-    height: 0;
-    opacity: 0;
-    visibility: collapse;
-  }
-}
-
-/* // Large devices (desktops, 992px and up) */
-@media (max-width: 992px) {
-  th.col-5,
-  td.col-5 {
-    display: none;
-    width: 0;
-    height: 0;
-    opacity: 0;
-    visibility: collapse;
-  }
-}
-
-/* // X-Large devices (large desktops, 1200px and up) */
-@media (max-width: 1200px) {
-  th.col-6,
-  td.col-6 {
-    display: none;
-    width: 0;
-    height: 0;
-    opacity: 0;
-    visibility: collapse;
-  }
-}
-
-/* // XX-Large devices (larger desktops, 1400px and up) */
-@media (max-width: 1400px) {
 }
