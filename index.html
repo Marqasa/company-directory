@@ -20,20 +20,19 @@
 
     <!-- MAIN -->
     <div id="main" class="container">
-      <!-- TABS -->
-      <nav class="navbar navbar-light bg-light">
-        <!-- Navbar content -->
+      <!-- NAV -->
+      <nav class="navbar navbar-light bg-white">
         <div class="container-fluid">
-          <ul class="nav nav-pills" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
+          <ul class="nav nav-pills my-2" id="pills-tab" role="tablist">
+            <li class="nav-item me-2" role="presentation">
               <button
                 class="nav-link active"
-                id="pills-home-tab"
+                id="pills-personnel-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#pills-home"
+                data-bs-target="#pills-personnel"
                 type="button"
                 role="tab"
-                aria-controls="pills-home"
+                aria-controls="pills-personnel"
                 aria-selected="true"
               >
                 Personnel
@@ -41,13 +40,13 @@
             </li>
             <li class="nav-item" role="presentation">
               <button
-                class="nav-link"
-                id="pills-profile-tab"
+                class="nav-link me-2"
+                id="pills-departments-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#pills-profile"
+                data-bs-target="#pills-departments"
                 type="button"
                 role="tab"
-                aria-controls="pills-profile"
+                aria-controls="pills-departments"
                 aria-selected="false"
               >
                 Departments
@@ -56,12 +55,12 @@
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link me-3"
-                id="pills-contact-tab"
+                id="pills-locations-tab"
                 data-bs-toggle="pill"
-                data-bs-target="#pills-contact"
+                data-bs-target="#pills-locations"
                 type="button"
                 role="tab"
-                aria-controls="pills-contact"
+                aria-controls="pills-locations"
                 aria-selected="false"
               >
                 Locations
@@ -69,93 +68,100 @@
             </li>
           </ul>
 
-          <div class="d-flex">
+          <div class="d-flex my-2">
             <button
-              class="btn btn-primary me-2"
+              class="btn btn-outline-success me-2"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseExample"
+              data-bs-target="#collapseFilter"
               aria-expanded="false"
-              aria-controls="collapseExample"
+              aria-controls="collapseFilter"
             >
               Filter
             </button>
-            <button class="btn btn-primary">New</button>
+            <button class="btn btn-outline-success">New</button>
           </div>
         </div>
       </nav>
 
-      <div class="collapse" id="collapseExample">
+      <!-- FILTER -->
+      <div class="collapse" id="collapseFilter">
         <form>
-            <div class="my-3">
-              <input
-                id="search"
-                class="form-control border"
-                type="text"
-                placeholder="Search"
-                aria-label="Search"
-              />
-            </div>
-            <select
-              id="mainDeps"
-              class="form-select border mb-3"
-              aria-label="Departments"
-            ></select>
-            <select
-              id="mainLocs"
-              class="form-select border mb-3"
-              aria-label="Locations"
-            ></select>
-          </form>
+          <input
+            id="filterSearch"
+            class="form-control border mb-3"
+            type="text"
+            placeholder="Search"
+            aria-label="Search"
+          />
+
+          <select
+            id="filterDepartments"
+            class="form-select border mb-3"
+            aria-label="Departments"
+          ></select>
+
+          <select
+            id="filterLocations"
+            class="form-select border mb-3"
+            aria-label="Locations"
+          ></select>
+        </form>
       </div>
 
+      <!-- TABLES -->
       <div class="tab-content" id="pills-tabContent">
+        <!-- PERSONNEL -->
         <div
           class="tab-pane fade show active"
-          id="pills-home"
+          id="pills-personnel"
           role="tabpanel"
-          aria-labelledby="pills-home-tab"
+          aria-labelledby="pills-personnel-tab"
         >
-          <table class="table table-hover">
+          <table class="table table-hover table-bordered">
             <thead>
-              <tr>
-                <th class="col-1" scope="col">First Name</th>
-                <th class="col-2" scope="col">Last Name</th>
-                <th class="col-3" scope="col">Email</th>
-                <th class="col-4" scope="col">Job Title</th>
-                <th class="col-5" scope="col">Department</th>
-                <th class="col-6" scope="col">Location</th>
+              <tr class="row">
+                <th class="col" scope="col">First Name</th>
+                <th class="col" scope="col">Last Name</th>
+                <th class="col" scope="col">Email</th>
+                <th class="col" scope="col">Job Title</th>
+                <th class="col" scope="col">Department</th>
+                <th class="col" scope="col">Location</th>
               </tr>
             </thead>
             <tbody id="personnel"></tbody>
           </table>
         </div>
+
+        <!-- DEPARTMENTS -->
         <div
           class="tab-pane fade"
-          id="pills-profile"
+          id="pills-departments"
           role="tabpanel"
-          aria-labelledby="pills-profile-tab"
+          aria-labelledby="pills-departments-tab"
         >
-          <table class="table table-hover">
+          <table class="table table-hover table-bordered">
             <thead>
-              <tr>
-                <th class="col-1" scope="col">Name</th>
-                <th class="col-2" scope="col">Location</th>
+              <tr class="row">
+                <th class="col" scope="col">Name</th>
+                <th class="col" scope="col">Location</th>
               </tr>
             </thead>
             <tbody id="departments"></tbody>
           </table>
         </div>
+
+        <!-- LOCATIONS -->
         <div
           class="tab-pane fade"
-          id="pills-contact"
+          id="pills-locations"
           role="tabpanel"
-          aria-labelledby="pills-contact-tab"
+          aria-labelledby="pills-locations-tab"
         >
-          <table class="table table-hover">
+          <table class="table table-hover table-bordered">
             <thead>
-              <tr>
-                <th class="col-1" scope="col">Name</th>
+              <tr class="row">
+                <th class="col" scope="col">Name</th>
               </tr>
             </thead>
             <tbody id="locations"></tbody>
