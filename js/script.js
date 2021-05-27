@@ -44,6 +44,12 @@ function getData() {
   const success = function (result) {
     var personnelTable = $("#personnel-table").DataTable({
       autoWidth: false,
+      responsive: {
+        details: {
+          type: "column",
+          target: "tr",
+        },
+      },
       data: result.data.personnel,
       columns: [
         { data: "firstName" },
@@ -65,16 +71,27 @@ function getData() {
       ],
     });
 
-    $("#personnel-table tbody").on("click", ".btn-edit", function () {
-      var data = personnelTable.row($(this).parents("tr")).data();
-
-      $("#editEmpFirst").val(data.firstName);
-      $("#editEmpLast").val(data.lastName);
-      $("#editEmpJob").val(data.jobTitle);
-      $("#editEmpEmail").val(data.email);
-      $("#editEmpDep").val(data.departmentId);
-      $("#editEmpModal").modal("show");
+    $(document).on("click", ".btn-edit", function () {
+      //Button inside a cell
+      var current_row = $(this).parents("tr"); //Get the current row
+      if (current_row.hasClass("child")) {
+        //Check if the current row is a child row
+        current_row = current_row.prev(); //If it is, then point to the row before it (its 'parent')
+      }
+      var data = personnelTable.row(current_row).data(); //At this point, current_row refers to a valid row in the table, whether is a child row (collapsed by the DataTable's responsiveness) or a 'normal' row
+      console.log(data);
     });
+
+    // $("#personnel-table tbody").on("click", ".btn-edit", function () {
+    //   var data = personnelTable.row($(this).parents("tr")).data();
+
+    //   $("#editEmpFirst").val(data.firstName);
+    //   $("#editEmpLast").val(data.lastName);
+    //   $("#editEmpJob").val(data.jobTitle);
+    //   $("#editEmpEmail").val(data.email);
+    //   $("#editEmpDep").val(data.departmentId);
+    //   $("#editEmpModal").modal("show");
+    // });
 
     $("#personnel-table tbody").on("click", ".btn-delete", function () {
       var data = personnelTable.row($(this).parents("tr")).data();

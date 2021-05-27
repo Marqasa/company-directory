@@ -14,14 +14,18 @@
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
       crossorigin="anonymous"
     />
+
     <link
+      rel="stylesheet"
+      type="text/css"
       href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css"
-      rel="stylesheet"
     />
     <link
-      href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css"
       rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css"
     />
+
     <link href="css/styles.css" rel="stylesheet" />
 
     <title>Company Directory</title>
@@ -34,10 +38,10 @@
     <!-- MAIN -->
     <div id="main" class="container">
       <!-- NAV -->
-      <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
+      <ul class="nav nav-tabs nav-fill mt-3" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button
-            class="nav-link active"
+            class="nav-link active px-2"
             id="personnel-tab"
             data-bs-toggle="tab"
             data-bs-target="#personnel"
@@ -51,7 +55,7 @@
         </li>
         <li class="nav-item" role="presentation">
           <button
-            class="nav-link"
+            class="nav-link px-2"
             id="departments-tab"
             data-bs-toggle="tab"
             data-bs-target="#departments"
@@ -65,7 +69,7 @@
         </li>
         <li class="nav-item" role="presentation">
           <button
-            class="nav-link"
+            class="nav-link px-2"
             id="locations-tab"
             data-bs-toggle="tab"
             data-bs-target="#locations"
@@ -97,7 +101,7 @@
           </div>
           <table
             id="personnel-table"
-            class="table table-bordered table-hover"
+            class="table table-bordered table-hover display responsive nowrap"
             style="width: 100%"
           >
             <thead>
@@ -358,11 +362,17 @@
         </div>
       </div>
     </div>
-  </body>
 
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
-  <script src="js/script.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
 </html>
