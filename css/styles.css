@@ -2,10 +2,6 @@
   border-color: #ced4da !important;
 }
 
-.table-controls {
-  margin: 7px 0px 6px;
-}
-
 /* Preloader */
 #preloader {
   position: fixed;
@@ -51,5 +47,13 @@
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  #new-emp,
+  #new-dep,
+  #new-loc {
+    text-align: center;
   }
 }

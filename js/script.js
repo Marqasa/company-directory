@@ -51,6 +51,10 @@ function getData() {
         details: false,
       },
       data: result.data.personnel,
+      dom:
+        "<'row d-flex align-items-center'<'#new-emp.col-sm-12 col-md-4 my-1'><'col-sm-12 col-md-4 my-1 text-center'l><'col-sm-12 col-md-4 my-1'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
       columns: [
         { data: "firstName" },
         { data: "lastName" },
@@ -70,6 +74,10 @@ function getData() {
         },
       ],
     });
+
+    $("#new-emp").html(
+      '<button id="new-employee" class="btn btn-outline-success btn-tbl w-50">New</button>'
+    );
 
     $("#personnel-table tbody").on("click", ".btn-edit", function (e) {
       e.stopPropagation();
@@ -110,12 +118,20 @@ function getData() {
     });
 
     $("#personnel-table tbody").on("click", ".btn-delete", function () {
-      var employeeData = personnelTable.row($(this).parents("tr")).data();
+      employeeData = personnelTable.row($(this).parents("tr")).data();
     });
 
     $("#departments-table").DataTable({
       autoWidth: false,
+      pagingType: "numbers",
+      responsive: {
+        details: false,
+      },
       data: result.data.departments,
+      dom:
+        "<'row d-flex align-items-center'<'#new-dep.col-sm-12 col-md-4 my-1'><'col-sm-12 col-md-4 my-1 text-center'l><'col-sm-12 col-md-4 my-1'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
       columns: [
         { data: "name" },
         { data: "location" },
@@ -132,9 +148,21 @@ function getData() {
       ],
     });
 
+    $("#new-dep").html(
+      '<button id="new-department" class="btn btn-outline-success btn-tbl w-50">New</button>'
+    );
+
     $("#locations-table").DataTable({
       autoWidth: false,
+      pagingType: "numbers",
+      responsive: {
+        details: false,
+      },
       data: result.data.locations,
+      dom:
+        "<'row d-flex align-items-center'<'#new-loc.col-sm-12 col-md-4 my-1'><'col-sm-12 col-md-4 my-1 text-center'l><'col-sm-12 col-md-4 my-1'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
       columns: [
         { data: "name" },
         {
@@ -149,6 +177,10 @@ function getData() {
         },
       ],
     });
+
+    $("#new-loc").html(
+      '<button id="new-location" class="btn btn-outline-success btn-tbl w-50">New</button>'
+    );
 
     // Clear departments
     $("#newEmpDep").empty();

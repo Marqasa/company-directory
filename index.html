@@ -42,7 +42,7 @@
     <!-- MAIN -->
     <div id="main" class="container">
       <!-- NAV -->
-      <ul class="nav nav-tabs nav-fill mt-3" id="myTab" role="tablist">
+      <ul class="nav nav-tabs nav-fill my-3" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button
             class="nav-link active px-2"
@@ -96,13 +96,6 @@
           role="tabpanel"
           aria-labelledby="personnel-tab"
         >
-          <div
-            class="table-controls d-grid gap-2 d-md-flex justify-content-md-end"
-          >
-            <button id="new-employee" class="btn btn-outline-success btn-tbl">
-              New
-            </button>
-          </div>
           <table
             id="personnel-table"
             class="table table-bordered table-hover display responsive nowrap"
@@ -129,21 +122,9 @@
           role="tabpanel"
           aria-labelledby="departments-tab"
         >
-          <div
-            class="
-              table-controls
-              d-grid
-              gap-2
-              d-md-flex
-              justify-content-md-end
-              mb-2
-            "
-          >
-            <button class="btn btn-outline-success btn-tbl">New</button>
-          </div>
           <table
             id="departments-table"
-            class="table table-bordered table-hover"
+            class="table table-bordered table-hover display responsive nowrap"
             style="width: 100%"
           >
             <thead>
@@ -163,21 +144,9 @@
           role="tabpanel"
           aria-labelledby="locations-tab"
         >
-          <div
-            class="
-              table-controls
-              d-grid
-              gap-2
-              d-md-flex
-              justify-content-md-end
-              mb-2
-            "
-          >
-            <button class="btn btn-outline-success btn-tbl">New</button>
-          </div>
           <table
             id="locations-table"
-            class="table table-bordered table-hover"
+            class="table table-bordered table-hover display responsive nowrap"
             style="width: 100%"
           >
             <thead>
@@ -205,7 +174,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <table class="table">
+            <table class="table table-sm table-bordered">
               <tbody>
                 <tr>
                   <th scope="row">First</th>
@@ -236,7 +205,7 @@
           </div>
           <div class="modal-footer">
             <button
-              class="btn btn-sm btn-emp-edit btn-tbl btn-outline-dark me-2"
+              class="btn btn-emp-edit btn-tbl btn-outline-dark me-2"
               data-bs-target="#editEmpModal"
               data-bs-toggle="modal"
               data-bs-dismiss="modal"
@@ -244,7 +213,7 @@
               Edit
             </button>
             <button
-              class="btn btn-sm btn-emp-delete btn-tbl btn-outline-danger"
+              class="btn btn-emp-delete btn-tbl btn-outline-danger"
               data-bs-dismiss="modal"
             >
               Delete
