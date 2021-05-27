@@ -58,8 +58,8 @@ function getData() {
           width: "147px",
           defaultContent:
             '<div class="text-center">' +
-            '<button class="btn btn-sm btn-edit btn-outline-dark  me-2">Edit</button>' +
-            '<button class="btn btn-sm btn-delete btn-outline-danger  ">Delete</button>' +
+            '<button class="btn btn-sm btn-edit btn-tbl btn-outline-dark  me-2">Edit</button>' +
+            '<button class="btn btn-sm btn-delete btn-tbl btn-outline-danger  ">Delete</button>' +
             "</div>",
         },
       ],
@@ -93,8 +93,8 @@ function getData() {
           width: "147px",
           defaultContent:
             '<div class="text-center">' +
-            '<button class="btn btn-sm btn-edit btn-outline-dark  me-2">Edit</button>' +
-            '<button class="btn btn-sm btn-delete btn-outline-danger  ">Delete</button>' +
+            '<button class="btn btn-sm btn-edit btn-tbl btn-outline-dark  me-2">Edit</button>' +
+            '<button class="btn btn-sm btn-delete btn-tbl btn-outline-danger  ">Delete</button>' +
             "</div>",
         },
       ],
@@ -111,8 +111,8 @@ function getData() {
           width: "147px",
           defaultContent:
             '<div class="text-center">' +
-            '<button class="btn btn-sm btn-edit btn-outline-dark  me-2">Edit</button>' +
-            '<button class="btn btn-sm btn-delete btn-outline-danger  ">Delete</button>' +
+            '<button class="btn btn-sm btn-edit btn-tbl btn-outline-dark  me-2">Edit</button>' +
+            '<button class="btn btn-sm btn-delete btn-tbl btn-outline-danger  ">Delete</button>' +
             "</div>",
         },
       ],

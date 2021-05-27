@@ -1,9 +1,9 @@
-* {
-  border-color: #dee2e6 !important;
+.btn-tbl {
+  border-color: #ced4da !important;
 }
 
-#new-emp-div {
-  margin-bottom: 6px;
+.table-controls {
+  margin: 7px 0px 6px;
 }
 
 /* Preloader */
