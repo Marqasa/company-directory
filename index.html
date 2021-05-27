@@ -9,6 +9,14 @@
 
     <link href="favicon.ico" rel="icon" />
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link
+      href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css"
+      rel="stylesheet"
+    />
     <link href="css/styles.css" rel="stylesheet" />
 
     <title>Company Directory</title>
@@ -67,50 +75,11 @@
               </button>
             </li>
           </ul>
-
-          <div class="d-flex my-2">
-            <button
-              class="btn btn-outline-success me-2"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseFilter"
-              aria-expanded="false"
-              aria-controls="collapseFilter"
-            >
-              Filter
-            </button>
-            <button class="btn btn-outline-success">New</button>
-          </div>
         </div>
       </nav>
 
-      <!-- FILTER -->
-      <div class="collapse" id="collapseFilter">
-        <form>
-          <input
-            id="filterSearch"
-            class="form-control border mb-3"
-            type="text"
-            placeholder="Search"
-            aria-label="Search"
-          />
-
-          <select
-            id="filterDepartments"
-            class="form-select border mb-3"
-            aria-label="Departments"
-          ></select>
-
-          <select
-            id="filterLocations"
-            class="form-select border mb-3"
-            aria-label="Locations"
-          ></select>
-        </form>
-      </div>
-
       <!-- TABLES -->
-      <div class="tab-content" id="pills-tabContent">
+      <div class="tab-content mt-3" id="pills-tabContent">
         <!-- PERSONNEL -->
         <div
           class="tab-pane fade show active"
@@ -118,18 +87,25 @@
           role="tabpanel"
           aria-labelledby="pills-personnel-tab"
         >
-          <table class="table table-hover table-bordered">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+            <button class="btn btn-outline-success">New</button>
+          </div>
+          <table
+            id="personnel-table"
+            class="table table-bordered table-hover"
+            style="width: 100%"
+          >
             <thead>
               <tr>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Job Title</th>
-                <th scope="col">Department</th>
-                <th scope="col">Location</th>
+                <th class="text-center">First</th>
+                <th class="text-center">Last</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Job</th>
+                <th class="text-center">Department</th>
+                <th class="text-center">Location</th>
+                <th class="text-center">Actions</th>
               </tr>
             </thead>
-            <tbody id="personnel"></tbody>
           </table>
         </div>
 
@@ -140,14 +116,21 @@
           role="tabpanel"
           aria-labelledby="pills-departments-tab"
         >
-          <table class="table table-hover table-bordered">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+            <button class="btn btn-outline-success">New</button>
+          </div>
+          <table
+            id="departments-table"
+            class="table table-bordered table-hover"
+            style="width: 100%"
+          >
             <thead>
               <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Location</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Location</th>
+                <th class="text-center">Actions</th>
               </tr>
             </thead>
-            <tbody id="departments"></tbody>
           </table>
         </div>
 
@@ -158,13 +141,20 @@
           role="tabpanel"
           aria-labelledby="pills-locations-tab"
         >
-          <table class="table table-hover table-bordered">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+            <button class="btn btn-outline-success">New</button>
+          </div>
+          <table
+            id="locations-table"
+            class="table table-bordered table-hover"
+            style="width: 100%"
+          >
             <thead>
               <tr>
-                <th scope="col">Name</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Actions</th>
               </tr>
             </thead>
-            <tbody id="locations"></tbody>
           </table>
         </div>
       </div>
@@ -172,6 +162,8 @@
   </body>
 
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="vendor/jquery/jquery-2.2.3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
   <script src="js/script.js"></script>
 </html>
