@@ -194,42 +194,42 @@
               <fieldset id="newEmpFields">
                 <!-- FIRST NAME -->
                 <div class="mb-3">
-                  <label for="empFirst" class="form-label">First Name</label>
+                  <label for="newEmpFirst" class="form-label">First Name</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="empFirst"
+                    id="newEmpFirst"
                     required
                   />
                 </div>
 
                 <!-- LAST NAME -->
                 <div class="mb-3">
-                  <label for="empLast" class="form-label">Last Name</label>
+                  <label for="newEmpLast" class="form-label">Last Name</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="empLast"
+                    id="newEmpLast"
                     required
                   />
                 </div>
 
                 <!-- EMAIL -->
                 <div class="mb-3">
-                  <label for="empEmail" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="empEmail" />
+                  <label for="newEmpEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="newEmpEmail" />
                 </div>
 
                 <!-- JOB TITLE -->
                 <div class="mb-3">
-                  <label for="empJob" class="form-label">Job Title</label>
-                  <input type="text" class="form-control" id="empJob" />
+                  <label for="newEmpJob" class="form-label">Job Title</label>
+                  <input type="text" class="form-control" id="newEmpJob" />
                 </div>
 
                 <!-- DEPARTMENT -->
                 <div class="mb-3">
-                  <label for="empDep" class="form-label">Department</label>
-                  <select id="empDep" class="form-select" required></select>
+                  <label for="newEmpDep" class="form-label">Department</label>
+                  <select id="newEmpDep" class="form-select" required></select>
                 </div>
               </fieldset>
             </form>
@@ -245,6 +245,95 @@
               Cancel
             </button>
             <button id="newEmpSave" type="button" class="btn btn-primary">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT EMPLOYEE MODAL -->
+    <div
+      class="modal fade"
+      id="editEmpModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="editEmpLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="editEmpLabel">Edit Employee</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- BODY -->
+          <div class="modal-body">
+            <form id="editEmpForm">
+              <fieldset id="editEmpFields">
+                <!-- FIRST NAME -->
+                <div class="mb-3">
+                  <label for="editEmpFirst" class="form-label"
+                    >First Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editEmpFirst"
+                    required
+                  />
+                </div>
+
+                <!-- LAST NAME -->
+                <div class="mb-3">
+                  <label for="editEmpLast" class="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editEmpLast"
+                    required
+                  />
+                </div>
+
+                <!-- EMAIL -->
+                <div class="mb-3">
+                  <label for="editEmpEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="editEmpEmail" />
+                </div>
+
+                <!-- JOB TITLE -->
+                <div class="mb-3">
+                  <label for="editEmpJob" class="form-label">Job Title</label>
+                  <input type="text" class="form-control" id="editEmpJob" />
+                </div>
+
+                <!-- DEPARTMENT -->
+                <div class="mb-3">
+                  <label for="editEmpDep" class="form-label">Department</label>
+                  <select id="editEmpDep" class="form-select" required></select>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+
+          <!-- FOOTER -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button id="editEmpSave" type="button" class="btn btn-primary">
               Save
             </button>
           </div>

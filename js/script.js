@@ -43,6 +43,7 @@ function getData() {
   const url = "libs/php/getAll.php";
   const success = function (result) {
     var personnelTable = $("#personnel-table").DataTable({
+      autoWidth: false,
       data: result.data.personnel,
       columns: [
         { data: "firstName" },
@@ -54,6 +55,7 @@ function getData() {
         {
           data: null,
           orderable: false,
+          width: "147px",
           defaultContent:
             '<div class="text-center">' +
             '<button class="btn btn-sm btn-edit btn-outline-dark  me-2">Edit</button>' +
@@ -65,7 +67,13 @@ function getData() {
 
     $("#personnel-table tbody").on("click", ".btn-edit", function () {
       var data = personnelTable.row($(this).parents("tr")).data();
-      console.log("EDIT");
+
+      $("#editEmpFirst").val(data.firstName);
+      $("#editEmpLast").val(data.lastName);
+      $("#editEmpJob").val(data.jobTitle);
+      $("#editEmpEmail").val(data.email);
+      $("#editEmpDep").val(data.departmentId);
+      $("#editEmpModal").modal("show");
     });
 
     $("#personnel-table tbody").on("click", ".btn-delete", function () {
@@ -74,6 +82,7 @@ function getData() {
     });
 
     $("#departments-table").DataTable({
+      autoWidth: false,
       data: result.data.departments,
       columns: [
         { data: "name" },
@@ -81,44 +90,50 @@ function getData() {
         {
           data: null,
           orderable: false,
-          render: function (data, type, row) {
-            return (
-              '<div class="text-center">' +
-              '<button data-id="' +
-              data.id +
-              '" class="btn btn-sm btn-outline-success me-2">Edit</button>' +
-              '<button data-id="' +
-              data.id +
-              '" class="btn btn-sm btn-outline-danger">Delete</button>' +
-              "</div>"
-            );
-          },
+          width: "147px",
+          defaultContent:
+            '<div class="text-center">' +
+            '<button class="btn btn-sm btn-edit btn-outline-dark  me-2">Edit</button>' +
+            '<button class="btn btn-sm btn-delete btn-outline-danger  ">Delete</button>' +
+            "</div>",
         },
       ],
     });
 
     $("#locations-table").DataTable({
+      autoWidth: false,
       data: result.data.locations,
       columns: [
         { data: "name" },
         {
           data: null,
-          width: "90%",
           orderable: false,
-          render: function (data, type, row) {
-            return (
-              '<div class="text-center">' +
-              '<button data-id="' +
-              data.id +
-              '" class="btn btn-sm btn-outline-success  me-2">Edit</button>' +
-              '<button data-id="' +
-              data.id +
-              '" class="btn btn-sm btn-outline-danger ">Delete</button>' +
-              "</div>"
-            );
-          },
+          width: "147px",
+          defaultContent:
+            '<div class="text-center">' +
+            '<button class="btn btn-sm btn-edit btn-outline-dark  me-2">Edit</button>' +
+            '<button class="btn btn-sm btn-delete btn-outline-danger  ">Delete</button>' +
+            "</div>",
         },
       ],
+    });
+
+    // Clear departments
+    $("#newEmpDep").empty();
+    $("#editEmpDep").empty();
+
+    $.each(result.data.departments, function (i, o) {
+      const option =
+        '<option value="' +
+        o.id +
+        '" data-loc="' +
+        o.locationId +
+        '">' +
+        o.name +
+        "</option>";
+
+      $("#newEmpDep").append(option);
+      $("#editEmpDep").append(option);
     });
   };
 
