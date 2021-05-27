@@ -2,6 +2,8 @@
 // GENERAL
 // ===----------------------------------------------------------------------===
 
+let employeeData;
+
 // ON LOAD
 $(window).on("load", function () {
   //   $("#personnel-table").DataTable();
@@ -44,11 +46,9 @@ function getData() {
   const success = function (result) {
     var personnelTable = $("#personnel-table").DataTable({
       autoWidth: false,
+      pagingType: "numbers",
       responsive: {
-        details: {
-          type: "column",
-          target: "tr",
-        },
+        details: false,
       },
       data: result.data.personnel,
       columns: [
@@ -71,31 +71,46 @@ function getData() {
       ],
     });
 
-    $(document).on("click", ".btn-edit", function () {
+    $("#personnel-table tbody").on("click", ".btn-edit", function (e) {
+      e.stopPropagation();
       //Button inside a cell
       var current_row = $(this).parents("tr"); //Get the current row
       if (current_row.hasClass("child")) {
         //Check if the current row is a child row
         current_row = current_row.prev(); //If it is, then point to the row before it (its 'parent')
       }
-      var data = personnelTable.row(current_row).data(); //At this point, current_row refers to a valid row in the table, whether is a child row (collapsed by the DataTable's responsiveness) or a 'normal' row
-      console.log(data);
+
+      employeeData = personnelTable.row(current_row).data(); //At this point, current_row refers to a valid row in the table, whether is a child row (collapsed by the DataTable's responsiveness) or a 'normal' row
+      $("#editEmpFirst").val(employeeData.firstName);
+      $("#editEmpLast").val(employeeData.lastName);
+      $("#editEmpJob").val(employeeData.jobTitle);
+      $("#editEmpEmail").val(employeeData.email);
+      $("#editEmpDep").val(employeeData.departmentId);
+      $("#editEmpModal").modal("show");
     });
 
-    // $("#personnel-table tbody").on("click", ".btn-edit", function () {
-    //   var data = personnelTable.row($(this).parents("tr")).data();
+    $(".btn-emp-edit").on("click", function () {
+      $("#editEmpFirst").val(employeeData.firstName);
+      $("#editEmpLast").val(employeeData.lastName);
+      $("#editEmpJob").val(employeeData.jobTitle);
+      $("#editEmpEmail").val(employeeData.email);
+      $("#editEmpDep").val(employeeData.departmentId);
+    });
 
-    //   $("#editEmpFirst").val(data.firstName);
-    //   $("#editEmpLast").val(data.lastName);
-    //   $("#editEmpJob").val(data.jobTitle);
-    //   $("#editEmpEmail").val(data.email);
-    //   $("#editEmpDep").val(data.departmentId);
-    //   $("#editEmpModal").modal("show");
-    // });
+    $("#personnel-table tbody").on("click", "tr", function () {
+      employeeData = personnelTable.row($(this)).data();
+
+      $("#empDetFirst").text(employeeData.firstName);
+      $("#empDetLast").text(employeeData.lastName);
+      $("#empDetJob").text(employeeData.jobTitle);
+      $("#empDetEmail").text(employeeData.email);
+      $("#empDetDep").text(employeeData.department);
+      $("#empDetLoc").text(employeeData.location);
+      $("#detailsModal").modal("show");
+    });
 
     $("#personnel-table tbody").on("click", ".btn-delete", function () {
-      var data = personnelTable.row($(this).parents("tr")).data();
-      console.log("DELETE");
+      var employeeData = personnelTable.row($(this).parents("tr")).data();
     });
 
     $("#departments-table").DataTable({
