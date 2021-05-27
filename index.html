@@ -87,8 +87,13 @@
           role="tabpanel"
           aria-labelledby="pills-personnel-tab"
         >
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
-            <button class="btn btn-outline-success">New</button>
+          <div
+            id="new-emp-div"
+            class="d-grid gap-2 d-md-flex justify-content-md-end"
+          >
+            <button id="new-employee" class="btn btn-outline-success">
+              New
+            </button>
           </div>
           <table
             id="personnel-table"
@@ -156,6 +161,93 @@
               </tr>
             </thead>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW EMPLOYEE MODAL -->
+    <div
+      class="modal fade"
+      id="newEmpModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="newEmpLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="newEmpLabel">New Employee</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- BODY -->
+          <div class="modal-body">
+            <form id="newEmpForm">
+              <fieldset id="newEmpFields">
+                <!-- FIRST NAME -->
+                <div class="mb-3">
+                  <label for="empFirst" class="form-label">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="empFirst"
+                    required
+                  />
+                </div>
+
+                <!-- LAST NAME -->
+                <div class="mb-3">
+                  <label for="empLast" class="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="empLast"
+                    required
+                  />
+                </div>
+
+                <!-- EMAIL -->
+                <div class="mb-3">
+                  <label for="empEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="empEmail" />
+                </div>
+
+                <!-- JOB TITLE -->
+                <div class="mb-3">
+                  <label for="empJob" class="form-label">Job Title</label>
+                  <input type="text" class="form-control" id="empJob" />
+                </div>
+
+                <!-- DEPARTMENT -->
+                <div class="mb-3">
+                  <label for="empDep" class="form-label">Department</label>
+                  <select id="empDep" class="form-select" required></select>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+
+          <!-- FOOTER -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button id="newEmpSave" type="button" class="btn btn-primary">
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </div>

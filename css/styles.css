@@ -1,3 +1,11 @@
+* {
+  border-color: #dee2e6 !important;
+}
+
+#new-emp-div {
+  margin-bottom: 6px;
+}
+
 /* Preloader */
 #preloader {
   position: fixed;
