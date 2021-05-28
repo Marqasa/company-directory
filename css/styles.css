@@ -2,26 +2,30 @@ table {
     width: 100%;
 }
 
+tr {
+    cursor: pointer;
+}
+
 .btn-tbl {
     border-color: #ced4da !important;
 }
 
-#new-emp-btn,
-#new-dep-btn,
-#new-loc-btn {
+#newEmpBtn,
+#newDepBtn,
+#newLocBtn {
     width: 165px;
 }
 
 @media (max-width: 768px) {
-    #new-emp-div,
-    #new-dep-div,
-    #new-loc-div {
+    #newEmpDiv,
+    #newDepDiv,
+    #newLocDiv {
         justify-content: center !important;
     }
 
-    #new-emp-btn,
-    #new-dep-btn,
-    #new-loc-btn {
+    #newEmpBtn,
+    #newDepBtn,
+    #newLocBtn {
         width: 100% !important;
     }
 }

@@ -20,7 +20,7 @@ $(document).ready(function () {
         dom:
             "<'row d-flex align-items-center'<'col-sm-12 col-md-4 my-1'l>" +
             "<'col-sm-12 col-md-4 my-1 d-flex justify-content-center'f>" +
-            "<'#new-emp-div.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
+            "<'#newEmpDiv.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
         ajax: {
@@ -56,7 +56,7 @@ $(document).ready(function () {
         dom:
             "<'row d-flex align-items-center'<'col-sm-12 col-md-4 my-1'l>" +
             "<'col-sm-12 col-md-4 my-1 d-flex justify-content-center'f>" +
-            "<'#new-dep-div.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
+            "<'#newDepDiv.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
         ajax: {
@@ -88,7 +88,7 @@ $(document).ready(function () {
         dom:
             "<'row d-flex align-items-center'<'col-sm-12 col-md-4 my-1'l>" +
             "<'col-sm-12 col-md-4 my-1 d-flex justify-content-center'f>" +
-            "<'#new-loc-div.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
+            "<'#newLocDiv.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
         ajax: {
@@ -109,18 +109,58 @@ $(document).ready(function () {
         ],
     });
 
-    // NEW BUTTONS
-    $("#new-emp-div").html(
-        '<button id="new-emp-btn" class="btn btn-tbl btn-outline-success">New</button>'
+    // NEW EMPLOYEE BUTTON
+    $("#newEmpDiv").html(
+        '<button id="newEmpBtn" class="btn btn-tbl btn-outline-success">New</button>'
     );
 
-    $("#new-dep-div").html(
-        '<button id="new-dep-btn" class="btn btn-tbl btn-outline-success">New</button>'
+    // NEW DEPARTMENT BUTTON
+    $("#newDepDiv").html(
+        '<button id="newDepBtn" class="btn btn-tbl btn-outline-success">New</button>'
     );
 
-    $("#new-loc-div").html(
-        '<button id="new-loc-btn" class="btn btn-tbl btn-outline-success">New</button>'
+    // NEW LOCATION BUTTON
+    $("#newLocDiv").html(
+        '<button id="newLocBtn" class="btn btn-tbl btn-outline-success">New</button>'
     );
+
+    $("#newLocBtn").on("click", function () {
+        $("#newLocName").val("");
+        $("#newLocForm").removeClass("was-validated");
+        $("#newLocModal").modal("show");
+    });
+
+    // NEW LOCATION SAVE
+    $("#newLocSave").on("click", function () {
+        const form = document.getElementById("newLocForm");
+
+        if (form.checkValidity()) {
+            const url = "libs/php/insertLocation.php";
+            const name = $("#newLocName").val();
+            const data = { name: name };
+
+            const success = function (result) {
+                if (result.status.code == 200) {
+                    locationTable.ajax.reload();
+                    $("#successText").text("Location added successfully.");
+                    $("#successToast").toast("show");
+                    $("#newLocModal").modal("hide");
+                } else {
+                    $("#errorText").text(
+                        "There was an error adding the location."
+                    );
+                    $("#errorToast").toast("show");
+                    $("#newLocModal").modal("hide");
+                }
+            };
+
+            ajaxRequest(url, data, success);
+        } else {
+            form.classList.add("was-validated");
+        }
+
+        $("#newLocModal").modal("hide");
+    });
 });
 
 // ===----------------------------------------------------------------------===
