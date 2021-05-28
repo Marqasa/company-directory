@@ -67,7 +67,7 @@ $(document).ready(function () {
     });
 
     // DEPARTMENTS TABLE
-    departmentTable = $("#departments-table").DataTable({
+    departmentTable = $("#department-table").DataTable({
         autoWidth: false,
         pagingType: "numbers",
         responsive: {
@@ -100,7 +100,7 @@ $(document).ready(function () {
     });
 
     // LOCATIONS TABLE
-    locationTable = $("#locations-table").DataTable({
+    locationTable = $("#location-table").DataTable({
         autoWidth: false,
         pagingType: "numbers",
         responsive: {
@@ -157,6 +157,54 @@ $(document).ready(function () {
         $("#newDepModal").modal("show");
     });
 
+    // NEW DEPARTMENT SAVE
+    $("#newDepSave").on("click", function () {
+        const form = document.getElementById("newDepForm");
+
+        if (form.checkValidity()) {
+            const url = "libs/php/insertDepartment.php";
+            const name = $("#newDepName").val();
+            const locationId = $("#newDepLoc").val();
+            const data = { name: name, locationId: locationId };
+
+            const success = function (result) {
+                if (result.status.code == 200) {
+                    departmentTable.ajax.reload();
+
+                    $("#successText").text("Department added successfully.");
+                    $("#successToast").toast("show");
+                } else {
+                    $("#errorText").text(
+                        "There was an error adding the department."
+                    );
+                    $("#errorToast").toast("show");
+                }
+            };
+
+            ajaxRequest(url, data, success);
+        } else {
+            form.classList.add("was-validated");
+        }
+    });
+
+    // DEPARTMENT DETAILS
+    $("#department-table tbody").on("click", "tr", function () {
+        departmentData = departmentTable.row($(this)).data();
+
+        $("#depDetailsName").text(departmentData.name);
+        $("#depDetailsLoc").text(departmentData.location);
+        $("#depDetailsModal").modal("show");
+    });
+
+    // DEPARTMENT DETAILS EDIT BUTTON
+    $("#depDetailsEdit").on("click", function () {
+        // $("#editDepForm").removeClass("was-validated");
+        // $("#editDepName").val(departmentData.name);
+        // $("#editDepLoc").val(departmentData.locationId);
+        // $("#depDetailsModal").modal("hide");
+        // $("#editDepModal").modal("show");
+    });
+
     // NEW LOCATION BUTTON
     $("#newLocDiv").html(
         '<button id="newLocBtn" class="btn btn-tbl btn-outline-success">New</button>'
@@ -180,15 +228,14 @@ $(document).ready(function () {
             const success = function (result) {
                 if (result.status.code == 200) {
                     locationTable.ajax.reload();
+
                     $("#successText").text("Location added successfully.");
                     $("#successToast").toast("show");
-                    $("#newLocModal").modal("hide");
                 } else {
                     $("#errorText").text(
                         "There was an error adding the location."
                     );
                     $("#errorToast").toast("show");
-                    $("#newLocModal").modal("hide");
                 }
             };
 
@@ -196,12 +243,10 @@ $(document).ready(function () {
         } else {
             form.classList.add("was-validated");
         }
-
-        $("#newLocModal").modal("hide");
     });
 
     // LOCATION DETAILS
-    $("#locations-table tbody").on("click", "tr", function () {
+    $("#location-table tbody").on("click", "tr", function () {
         locationData = locationTable.row($(this)).data();
 
         $("#locDetailsName").text(locationData.name);
@@ -217,7 +262,7 @@ $(document).ready(function () {
     });
 
     // EDIT LOCATION BUTTON
-    $("#locations-table tbody").on("click", ".btn-edit", function (e) {
+    $("#location-table tbody").on("click", ".btn-edit", function (e) {
         e.stopPropagation();
 
         const row = $(this).parents("tr");
@@ -288,7 +333,7 @@ $(document).ready(function () {
     });
 
     // DELETE LOCATION BUTTON
-    $("#locations-table tbody").on("click", ".btn-del", function (e) {
+    $("#location-table tbody").on("click", ".btn-del", function (e) {
         e.stopPropagation();
 
         const row = $(this).parents("tr");

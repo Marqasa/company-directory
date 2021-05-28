@@ -135,16 +135,16 @@
                     aria-labelledby="departments-tab"
                 >
                     <table
-                        id="departments-table"
+                        id="department-table"
                         class="table table-bordered table-hover"
                     >
                         <thead>
                             <tr>
                                 <th class="text-center all">Name</th>
-                                <th class="text-center min-tablet-p">
+                                <th class="text-center min-mobile-l">
                                     Location
                                 </th>
-                                <th class="text-center min-mobile-l">
+                                <th class="text-center min-tablet-p">
                                     Actions
                                 </th>
                             </tr>
@@ -160,7 +160,7 @@
                     aria-labelledby="locations-tab"
                 >
                     <table
-                        id="locations-table"
+                        id="location-table"
                         class="
                             table table-bordered table-hover
                             display
@@ -180,12 +180,63 @@
                 </div>
             </div>
 
+            <!-- DEPARTMENT DETAILS MODAL -->
+            <div
+                class="modal fade"
+                id="depDetailsModal"
+                tabindex="-1"
+                aria-labelledby="depDetailsLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- HEADER -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="depDetailsLabel">
+                                Department Details
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+
+                        <!-- BODY -->
+                        <div class="modal-body">
+                            <h6>Name</h6>
+                            <p id="depDetailsName" class="border-bottom"></p>
+                            <h6>Location</h6>
+                            <p id="depDetailsLoc" class="border-bottom"></p>
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="modal-footer">
+                            <button
+                                id="depDetailsEdit"
+                                type="button"
+                                class="btn btn-edit btn-tbl btn-outline-dark"
+                                data-bs-dismiss="modal"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                id="depDetailsDelete"
+                                type="button"
+                                class="btn btn-del btn-tbl btn-outline-danger"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- NEW DEPARTMENT MODAL -->
             <div
                 class="modal fade"
                 id="newDepModal"
-                data-bs-backdrop="static"
-                data-bs-keyboard="false"
                 tabindex="-1"
                 aria-labelledby="newDepLabel"
                 aria-hidden="true"
@@ -256,8 +307,60 @@
                                 id="newDepSave"
                                 type="button"
                                 class="btn btn-tbl btn-outline-primary"
+                                data-bs-dismiss="modal"
                             >
                                 Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOCATION DETAILS MODAL -->
+            <div
+                class="modal fade"
+                id="locDetailsModal"
+                tabindex="-1"
+                aria-labelledby="locDetailsLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- HEADER -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="locDetailsLabel">
+                                Location Details
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+
+                        <!-- BODY -->
+                        <div class="modal-body">
+                            <h6>Name</h6>
+                            <p id="locDetailsName" class="border-bottom"></p>
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="modal-footer">
+                            <button
+                                id="locDetailsEdit"
+                                type="button"
+                                class="btn btn-edit btn-tbl btn-outline-dark"
+                                data-bs-dismiss="modal"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                id="locDetailsDelete"
+                                type="button"
+                                class="btn btn-del btn-tbl btn-outline-danger"
+                            >
+                                Delete
                             </button>
                         </div>
                     </div>
@@ -268,8 +371,6 @@
             <div
                 class="modal fade"
                 id="newLocModal"
-                data-bs-backdrop="static"
-                data-bs-keyboard="false"
                 tabindex="-1"
                 aria-labelledby="newLocLabel"
                 aria-hidden="true"
@@ -325,59 +426,9 @@
                                 id="newLocSave"
                                 type="button"
                                 class="btn btn-tbl btn-outline-primary"
+                                data-bs-dismiss="modal"
                             >
                                 Save
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- LOCATION DETAILS MODAL -->
-            <div
-                class="modal fade"
-                id="locDetailsModal"
-                tabindex="-1"
-                aria-labelledby="locDetailsLabel"
-                aria-hidden="true"
-            >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- HEADER -->
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="locDetailsLabel">
-                                Location Details
-                            </h5>
-                            <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                            ></button>
-                        </div>
-
-                        <!-- BODY -->
-                        <div class="modal-body">
-                            <h6>Name</h6>
-                            <p id="locDetailsName"></p>
-                        </div>
-
-                        <!-- FOOTER -->
-                        <div class="modal-footer">
-                            <button
-                                id="locDetailsEdit"
-                                type="button"
-                                class="btn btn-edit btn-tbl btn-outline-dark"
-                                data-bs-dismiss="modal"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                id="locDetailsDelete"
-                                type="button"
-                                class="btn btn-del btn-tbl btn-outline-danger"
-                            >
-                                Delete
                             </button>
                         </div>
                     </div>
