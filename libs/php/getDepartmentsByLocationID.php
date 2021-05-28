@@ -18,34 +18,28 @@ if (mysqli_connect_errno()) {
     $output['data'] = [];
 
     mysqli_close($conn);
-
     echo json_encode($output);
 
     exit;
 }
 
-// $_REQUEST used for development / debugging. Remember to cange to $_POST for production
-
 $query = '
     SELECT
-        id,
-        name
+        *
     FROM
         department
     WHERE
-        locationID = ' . $_REQUEST['locationID'];
+        locationID = ' . $_REQUEST['locationId'];
 
 $result = $conn->query($query);
 
 if (!$result) {
-
     $output['status']['code'] = "400";
     $output['status']['name'] = "executed";
     $output['status']['description'] = "query failed";
     $output['data'] = [];
 
     mysqli_close($conn);
-
     echo json_encode($output);
 
     exit;
@@ -64,7 +58,5 @@ $output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000
 $output['data'] = $data;
 
 header('Content-Type: application/json; charset=UTF-8');
-
 mysqli_close($conn);
-
 echo json_encode($output);

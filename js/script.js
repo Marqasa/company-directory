@@ -217,4 +217,50 @@ $(document).ready(function () {
 
         $("#editLocModal").modal("hide");
     });
+
+    // DELETE LOCATION BUTTON
+    $("#locations-table tbody").on("click", ".btn-del", function (e) {
+        const row = $(this).parents("tr");
+        locationData = locationTable.row(row).data();
+
+        const url = "libs/php/getDepartmentsByLocationID.php";
+        const data = { locationId: locationData.id };
+
+        const success = function (result) {
+            if (result.data.length > 0) {
+                $("#warningText").text(
+                    "Locations cannot be deleted while they have departments."
+                );
+                $("#warningToast").toast("show");
+            } else {
+                $("#delLocModal").modal("show");
+            }
+        };
+
+        ajaxRequest(url, data, success);
+    });
+
+    // DELETE LOCATION CONFIRM
+    $("#delLocConfirm").on("click", function () {
+        const url = "libs/php/deleteLocationByID.php";
+        const data = { id: locationData.id };
+
+        const success = function (result) {
+            if (result.status.code == 200) {
+                locationTable.ajax.reload();
+
+                $("#successText").text("Location deleted successfully.");
+                $("#successToast").toast("show");
+            } else {
+                $("#errorText").text(
+                    "There was an error deleting the location."
+                );
+                $("#errorToast").toast("show");
+            }
+
+            $("#delLocModal").modal("hide");
+        };
+
+        ajaxRequest(url, data, success);
+    });
 });

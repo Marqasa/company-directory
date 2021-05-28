@@ -30,6 +30,10 @@ tr {
     border-color: #ced4da !important;
 }
 
+.toast {
+    z-index: 9999;
+}
+
 /* Preloader */
 #preloader {
     position: fixed;
