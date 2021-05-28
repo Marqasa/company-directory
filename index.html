@@ -225,6 +225,7 @@
                                 id="depDetailsDelete"
                                 type="button"
                                 class="btn btn-del btn-tbl btn-outline-danger"
+                                data-bs-dismiss="modal"
                             >
                                 Delete
                             </button>
@@ -307,7 +308,88 @@
                                 id="newDepSave"
                                 type="button"
                                 class="btn btn-tbl btn-outline-primary"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EDIT DEPARTMENT MODAL -->
+            <div
+                class="modal fade"
+                id="editDepModal"
+                tabindex="-1"
+                aria-labelledby="editDepLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- HEADER -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editDepLabel">
+                                Edit Department
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
                                 data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+
+                        <!-- BODY -->
+                        <div class="modal-body">
+                            <form id="editDepForm">
+                                <fieldset>
+                                    <!-- NAME -->
+                                    <div class="mb-3">
+                                        <label
+                                            for="editDepName"
+                                            class="form-label"
+                                        >
+                                            Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="editDepName"
+                                            required
+                                        />
+                                    </div>
+
+                                    <!-- LOCATION -->
+                                    <div class="mb-3">
+                                        <label
+                                            for="editDepLoc"
+                                            class="form-label"
+                                        >
+                                            Location
+                                        </label>
+                                        <select
+                                            id="editDepLoc"
+                                            class="form-select"
+                                            required
+                                        ></select>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-tbl btn-outline-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                id="editDepSave"
+                                type="button"
+                                class="btn btn-tbl btn-outline-primary"
                             >
                                 Save
                             </button>
@@ -359,6 +441,7 @@
                                 id="locDetailsDelete"
                                 type="button"
                                 class="btn btn-del btn-tbl btn-outline-danger"
+                                data-bs-dismiss="modal"
                             >
                                 Delete
                             </button>
@@ -426,7 +509,6 @@
                                 id="newLocSave"
                                 type="button"
                                 class="btn btn-tbl btn-outline-primary"
-                                data-bs-dismiss="modal"
                             >
                                 Save
                             </button>
@@ -543,6 +625,7 @@
                                 id="delLocConfirm"
                                 type="button"
                                 class="btn btn-tbl btn-outline-danger"
+                                data-bs-dismiss="modal"
                             >
                                 Delete
                             </button>

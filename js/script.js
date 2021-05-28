@@ -116,12 +116,14 @@ $(document).ready(function () {
             const url = "libs/php/getAllLocations.php";
             const success = function (response) {
                 $("#newDepLoc").empty();
+                $("#editDepLoc").empty();
 
                 $.each(response.data, function (i, o) {
                     const option =
                         '<option value="' + o.id + '">' + o.name + "</option>";
 
                     $("#newDepLoc").append(option);
+                    $("#editDepLoc").append(option);
                 });
 
                 callback(response);
@@ -145,6 +147,10 @@ $(document).ready(function () {
         '<button id="newEmpBtn" class="btn btn-tbl btn-outline-success">New</button>'
     );
 
+    // ===-------------------------------------------------------------------===
+    // DEPARTMENT
+    // ===-------------------------------------------------------------------===
+
     // NEW DEPARTMENT BUTTON
     $("#newDepDiv").html(
         '<button id="newDepBtn" class="btn btn-tbl btn-outline-success">New</button>'
@@ -162,6 +168,8 @@ $(document).ready(function () {
         const form = document.getElementById("newDepForm");
 
         if (form.checkValidity()) {
+            $("#newDepModal").modal("hide");
+
             const url = "libs/php/insertDepartment.php";
             const name = $("#newDepName").val();
             const locationId = $("#newDepLoc").val();
@@ -198,12 +206,48 @@ $(document).ready(function () {
 
     // DEPARTMENT DETAILS EDIT BUTTON
     $("#depDetailsEdit").on("click", function () {
-        // $("#editDepForm").removeClass("was-validated");
-        // $("#editDepName").val(departmentData.name);
-        // $("#editDepLoc").val(departmentData.locationId);
-        // $("#depDetailsModal").modal("hide");
-        // $("#editDepModal").modal("show");
+        $("#editDepForm").removeClass("was-validated");
+        $("#editDepName").val(departmentData.name);
+        $("#editDepLoc").val(departmentData.locationId);
+        $("#editDepModal").modal("show");
     });
+
+    // EDIT DEPARTMENT SAVE
+    $("#editDepSave").on("click", function () {
+        const form = document.getElementById("editDepForm");
+
+        if (form.checkValidity()) {
+            $("#editDepModal").modal("hide");
+
+            const url = "libs/php/updateDepartmentByID.php";
+            const id = departmentData.id;
+            const name = $("#editDepName").val();
+            const locationId = $("#editDepLoc").val();
+            const data = { id: id, name: name, locationId: locationId };
+
+            const success = function (result) {
+                if (result.status.code == 200) {
+                    departmentTable.ajax.reload();
+
+                    $("#successText").text("Department updated successfully.");
+                    $("#successToast").toast("show");
+                } else {
+                    $("#errorText").text(
+                        "There was an error updating the department."
+                    );
+                    $("#errorToast").toast("show");
+                }
+            };
+
+            ajaxRequest(url, data, success);
+        } else {
+            form.classList.add("was-validated");
+        }
+    });
+
+    // ===-------------------------------------------------------------------===
+    // LOCATION
+    // ===-------------------------------------------------------------------===
 
     // NEW LOCATION BUTTON
     $("#newLocDiv").html(
@@ -221,6 +265,8 @@ $(document).ready(function () {
         const form = document.getElementById("newLocForm");
 
         if (form.checkValidity()) {
+            $("#newLocModal").modal("hide");
+
             const url = "libs/php/insertLocation.php";
             const name = $("#newLocName").val();
             const data = { name: name };
@@ -278,6 +324,8 @@ $(document).ready(function () {
         const form = document.getElementById("editLocForm");
 
         if (form.checkValidity()) {
+            $("#editLocModal").modal("hide");
+
             const url = "libs/php/updateLocationByID.php";
             const id = locationData.id;
             const name = $("#editLocName").val();
@@ -286,15 +334,14 @@ $(document).ready(function () {
             const success = function (result) {
                 if (result.status.code == 200) {
                     locationTable.ajax.reload();
+
                     $("#successText").text("Location updated successfully.");
                     $("#successToast").toast("show");
-                    $("#newLocModal").modal("hide");
                 } else {
                     $("#errorText").text(
                         "There was an error updating the location."
                     );
                     $("#errorToast").toast("show");
-                    $("#newLocModal").modal("hide");
                 }
             };
 
@@ -302,8 +349,6 @@ $(document).ready(function () {
         } else {
             form.classList.add("was-validated");
         }
-
-        $("#editLocModal").modal("hide");
     });
 
     // CHECK DELETE LOCATION
