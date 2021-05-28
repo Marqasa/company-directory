@@ -141,7 +141,9 @@
                         <thead>
                             <tr>
                                 <th class="text-center all">Name</th>
-                                <th class="text-center tablet-p">Location</th>
+                                <th class="text-center min-tablet-p">
+                                    Location
+                                </th>
                                 <th class="text-center min-mobile-l">
                                     Actions
                                 </th>
@@ -169,10 +171,96 @@
                         <thead>
                             <tr>
                                 <th class="text-center all">Name</th>
-                                <th class="text-center all">Actions</th>
+                                <th class="text-center min-mobile-l">
+                                    Actions
+                                </th>
                             </tr>
                         </thead>
                     </table>
+                </div>
+            </div>
+
+            <!-- NEW DEPARTMENT MODAL -->
+            <div
+                class="modal fade"
+                id="newDepModal"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="newDepLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- HEADER -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newDepLabel">
+                                New Department
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+
+                        <!-- BODY -->
+                        <div class="modal-body">
+                            <form id="newDepForm">
+                                <fieldset>
+                                    <!-- NAME -->
+                                    <div class="mb-3">
+                                        <label
+                                            for="newDepName"
+                                            class="form-label"
+                                        >
+                                            Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="newDepName"
+                                            required
+                                        />
+                                    </div>
+
+                                    <!-- LOCATION -->
+                                    <div class="mb-3">
+                                        <label
+                                            for="newDepLoc"
+                                            class="form-label"
+                                        >
+                                            Location
+                                        </label>
+                                        <select
+                                            id="newDepLoc"
+                                            class="form-select"
+                                            required
+                                        ></select>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-tbl btn-outline-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                id="newDepSave"
+                                type="button"
+                                class="btn btn-tbl btn-outline-primary"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -204,7 +292,7 @@
                         <!-- BODY -->
                         <div class="modal-body">
                             <form id="newLocForm">
-                                <fieldset id="newLocFields">
+                                <fieldset>
                                     <!-- NAME -->
                                     <div class="mb-3">
                                         <label
@@ -273,7 +361,7 @@
                         <!-- BODY -->
                         <div class="modal-body">
                             <form id="editLocForm">
-                                <fieldset id="editLocFields">
+                                <fieldset>
                                     <!-- NAME -->
                                     <div class="mb-3">
                                         <label

@@ -35,8 +35,13 @@ $(document).ready(function () {
             "<'#newEmpDiv.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
-        ajax: {
-            url: "libs/php/getAllPersonnel.php",
+        ajax: function (data, callback, settings) {
+            const url = "libs/php/getAllPersonnel.php";
+            const success = function (response) {
+                callback(response);
+            };
+
+            ajaxRequest(url, data, success);
         },
         columns: [
             { data: "firstName" },
@@ -71,8 +76,13 @@ $(document).ready(function () {
             "<'#newDepDiv.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
-        ajax: {
-            url: "libs/php/getAllDepartments.php",
+        ajax: function (data, callback, settings) {
+            const url = "libs/php/getAllDepartments.php";
+            const success = function (response) {
+                callback(response);
+            };
+
+            ajaxRequest(url, data, success);
         },
         columns: [
             { data: "name" },
@@ -103,8 +113,22 @@ $(document).ready(function () {
             "<'#newLocDiv.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
-        ajax: {
-            url: "libs/php/getAllLocations.php",
+        ajax: function (data, callback, settings) {
+            const url = "libs/php/getAllLocations.php";
+            const success = function (response) {
+                $("#newDepLoc").empty();
+
+                $.each(response.data, function (i, o) {
+                    const option =
+                        '<option value="' + o.id + '">' + o.name + "</option>";
+
+                    $("#newDepLoc").append(option);
+                });
+
+                callback(response);
+            };
+
+            ajaxRequest(url, data, success);
         },
         columns: [
             { data: "name" },
@@ -130,6 +154,13 @@ $(document).ready(function () {
     $("#newDepDiv").html(
         '<button id="newDepBtn" class="btn btn-tbl btn-outline-success">New</button>'
     );
+
+    $("#newDepBtn").on("click", function () {
+        $("#newDepName").val("");
+        $("#newDepLoc").val("");
+        $("#newDepForm").removeClass("was-validated");
+        $("#newDepModal").modal("show");
+    });
 
     // NEW LOCATION BUTTON
     $("#newLocDiv").html(
