@@ -1,12 +1,24 @@
-// ===----------------------------------------------------------------------===
-// GENERAL
-// ===----------------------------------------------------------------------===
+// GLOBALS
 let personnelTable;
 let departmentTable;
 let locationTable;
 let employeeData;
 let departmentData;
 let locationData;
+
+// AJAX REQUEST
+function ajaxRequest(url, data, success) {
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        data: data,
+        success: success,
+        error: function (request, status, error) {
+            console.log(error);
+        },
+    });
+}
 
 // ON READY
 $(document).ready(function () {
@@ -102,8 +114,8 @@ $(document).ready(function () {
                 width: "147px",
                 defaultContent:
                     '<div class="d-flex flex-nowrap justify-content-center">' +
-                    '<button class="btn btn-sm btn-edit btn-tbl btn-outline-dark  me-2">Edit</button>' +
-                    '<button class="btn btn-sm btn-delete btn-tbl btn-outline-danger  ">Delete</button>' +
+                    '<button class="btn btn-edit btn-sm btn-tbl btn-outline-dark me-2">Edit</button>' +
+                    '<button class="btn btn-del btn-sm btn-tbl btn-outline-danger">Delete</button>' +
                     "</div>",
             },
         ],
@@ -161,90 +173,48 @@ $(document).ready(function () {
 
         $("#newLocModal").modal("hide");
     });
-});
 
-// ===----------------------------------------------------------------------===
-// AJAX
-// ===----------------------------------------------------------------------===
+    // EDIT LOCATION BUTTON
+    $("#locations-table tbody").on("click", ".btn-edit", function (e) {
+        const row = $(this).parents("tr");
 
-// GENERIC REQUEST
-function ajaxRequest(url, data, success) {
-    $.ajax({
-        url: url,
-        type: "POST",
-        dataType: "json",
-        data: data,
-        success: success,
-        error: function (request, status, error) {
-            console.log(error);
-        },
+        locationData = locationTable.row(row).data();
+
+        $("#editLocForm").removeClass("was-validated");
+        $("#editLocName").val(locationData.name);
+        $("#editLocModal").modal("show");
     });
-}
 
-// GET DATA
-function getData() {
-    const url = "libs/php/getAll.php";
-    const success = function (result) {
-        // PERSONNEL TABLE
-        $("#personnel-table").DataTable({
-            data: result.data.personnel,
-            columns: [
-                { data: "firstName" },
-                { data: "lastName" },
-                { data: "email" },
-                { data: "jobTitle" },
-                { data: "department" },
-                { data: "location" },
-                {
-                    data: null,
-                    orderable: false,
-                    width: "147px",
-                    defaultContent:
-                        '<div class="text-center">' +
-                        '<button class="btn btn-sm btn-edit btn-tbl btn-outline-dark  me-2">Edit</button>' +
-                        '<button class="btn btn-sm btn-delete btn-tbl btn-outline-danger  ">Delete</button>' +
-                        "</div>",
-                },
-            ],
-        });
+    // EDIT LOCATION SAVE
+    $("#editLocSave").on("click", function () {
+        const form = document.getElementById("editLocForm");
 
-        // DEPARTMENTS TABLE
-        $("#departments-table").DataTable({
-            data: result.data.departments,
-            columns: [
-                { data: "name" },
-                { data: "location" },
-                {
-                    data: null,
-                    orderable: false,
-                    width: "147px",
-                    defaultContent:
-                        '<div class="text-center">' +
-                        '<button class="btn btn-sm btn-edit btn-tbl btn-outline-dark  me-2">Edit</button>' +
-                        '<button class="btn btn-sm btn-delete btn-tbl btn-outline-danger  ">Delete</button>' +
-                        "</div>",
-                },
-            ],
-        });
+        if (form.checkValidity()) {
+            const url = "libs/php/updateLocationByID.php";
+            const id = locationData.id;
+            const name = $("#editLocName").val();
+            const data = { id: id, name: name };
 
-        // LOCATIONS TABLE
-        $("#locations-table").DataTable({
-            data: result.data.locations,
-            columns: [
-                { data: "name" },
-                {
-                    data: null,
-                    orderable: false,
-                    width: "147px",
-                    defaultContent:
-                        '<div class="text-center">' +
-                        '<button class="btn btn-sm btn-edit btn-tbl btn-outline-dark  me-2">Edit</button>' +
-                        '<button class="btn btn-sm btn-delete btn-tbl btn-outline-danger  ">Delete</button>' +
-                        "</div>",
-                },
-            ],
-        });
-    };
+            const success = function (result) {
+                if (result.status.code == 200) {
+                    locationTable.ajax.reload();
+                    $("#successText").text("Location updated successfully.");
+                    $("#successToast").toast("show");
+                    $("#newLocModal").modal("hide");
+                } else {
+                    $("#errorText").text(
+                        "There was an error updating the location."
+                    );
+                    $("#errorToast").toast("show");
+                    $("#newLocModal").modal("hide");
+                }
+            };
 
-    ajaxRequest(url, {}, success);
-}
+            ajaxRequest(url, data, success);
+        } else {
+            form.classList.add("was-validated");
+        }
+
+        $("#editLocModal").modal("hide");
+    });
+});

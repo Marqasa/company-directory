@@ -245,6 +245,75 @@
                 </div>
             </div>
 
+            <!-- EDIT LOCATION MODAL -->
+            <div
+                class="modal fade"
+                id="editLocModal"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="editLocLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-fullscreen-sm-down">
+                    <div class="modal-content">
+                        <!-- HEADER -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editLocLabel">
+                                Edit Location
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+
+                        <!-- BODY -->
+                        <div class="modal-body">
+                            <form id="editLocForm">
+                                <fieldset id="editLocFields">
+                                    <!-- NAME -->
+                                    <div class="mb-3">
+                                        <label
+                                            for="editLocName"
+                                            class="form-label"
+                                        >
+                                            Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="editLocName"
+                                            required
+                                        />
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-tbl btn-outline-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                id="editLocSave"
+                                type="button"
+                                class="btn btn-tbl btn-outline-primary"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- SUCCESS TOAST -->
             <div
                 id="successToast"

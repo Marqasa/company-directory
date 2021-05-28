@@ -1,15 +1,3 @@
-table {
-    width: 100%;
-}
-
-tr {
-    cursor: pointer;
-}
-
-.btn-tbl {
-    border-color: #ced4da !important;
-}
-
 #newEmpBtn,
 #newDepBtn,
 #newLocBtn {
@@ -28,6 +16,18 @@ tr {
     #newLocBtn {
         width: 100% !important;
     }
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    cursor: pointer;
+}
+
+.btn-tbl {
+    border-color: #ced4da !important;
 }
 
 /* Preloader */
