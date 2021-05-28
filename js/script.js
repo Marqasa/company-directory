@@ -22,6 +22,13 @@ function ajaxRequest(url, data, success) {
 
 // ON READY
 $(document).ready(function () {
+    const actionWidth = "147px";
+    const actionButtons =
+        '<div class="d-flex flex-nowrap justify-content-center">' +
+        '<button class="btn btn-edit btn-sm btn-tbl btn-outline-dark me-2">Edit</button>' +
+        '<button class="btn btn-del btn-sm btn-tbl btn-outline-danger">Delete</button>' +
+        "</div>";
+
     // PERSONNEL TABLE
     personnelTable = $("#personnel-table").DataTable({
         autoWidth: false,
@@ -53,12 +60,8 @@ $(document).ready(function () {
             {
                 data: null,
                 orderable: false,
-                width: "147px",
-                defaultContent:
-                    '<div class="d-flex flex-nowrap justify-content-center">' +
-                    '<button class="btn btn-sm btn-edit btn-tbl btn-outline-dark  me-2">Edit</button>' +
-                    '<button class="btn btn-sm btn-delete btn-tbl btn-outline-danger  ">Delete</button>' +
-                    "</div>",
+                width: actionWidth,
+                defaultContent: actionButtons,
             },
         ],
     });
@@ -90,12 +93,8 @@ $(document).ready(function () {
             {
                 data: null,
                 orderable: false,
-                width: "147px",
-                defaultContent:
-                    '<div class="d-flex flex-nowrap justify-content-center">' +
-                    '<button class="btn btn-sm btn-edit btn-tbl btn-outline-dark  me-2">Edit</button>' +
-                    '<button class="btn btn-sm btn-delete btn-tbl btn-outline-danger  ">Delete</button>' +
-                    "</div>",
+                width: actionWidth,
+                defaultContent: actionButtons,
             },
         ],
     });
@@ -135,12 +134,8 @@ $(document).ready(function () {
             {
                 data: null,
                 orderable: false,
-                width: "147px",
-                defaultContent:
-                    '<div class="d-flex flex-nowrap justify-content-center">' +
-                    '<button class="btn btn-edit btn-sm btn-tbl btn-outline-dark me-2">Edit</button>' +
-                    '<button class="btn btn-del btn-sm btn-tbl btn-outline-danger">Delete</button>' +
-                    "</div>",
+                width: actionWidth,
+                defaultContent: actionButtons,
             },
         ],
     });
@@ -205,10 +200,27 @@ $(document).ready(function () {
         $("#newLocModal").modal("hide");
     });
 
+    // LOCATION DETAILS
+    $("#locations-table tbody").on("click", "tr", function () {
+        locationData = locationTable.row($(this)).data();
+
+        $("#locDetailsName").text(locationData.name);
+        $("#locDetailsModal").modal("show");
+    });
+
+    // LOCATION DETAILS EDIT
+    $("#locDetailsEdit").on("click", function () {
+        $("#editLocForm").removeClass("was-validated");
+        $("#editLocName").val(locationData.name);
+        $("#locDetailsModal").modal("hide");
+        $("#editLocModal").modal("show");
+    });
+
     // EDIT LOCATION BUTTON
     $("#locations-table tbody").on("click", ".btn-edit", function (e) {
-        const row = $(this).parents("tr");
+        e.stopPropagation();
 
+        const row = $(this).parents("tr");
         locationData = locationTable.row(row).data();
 
         $("#editLocForm").removeClass("was-validated");
@@ -249,11 +261,8 @@ $(document).ready(function () {
         $("#editLocModal").modal("hide");
     });
 
-    // DELETE LOCATION BUTTON
-    $("#locations-table tbody").on("click", ".btn-del", function (e) {
-        const row = $(this).parents("tr");
-        locationData = locationTable.row(row).data();
-
+    // CHECK DELETE LOCATION
+    function checkDeleteLocation() {
         const url = "libs/php/getDepartmentsByLocationID.php";
         const data = { locationId: locationData.id };
 
@@ -269,6 +278,23 @@ $(document).ready(function () {
         };
 
         ajaxRequest(url, data, success);
+    }
+
+    // LOCATION DETAILS DELETE
+    $("#locDetailsDelete").on("click", function () {
+        $("#locDetailsModal").modal("hide");
+
+        checkDeleteLocation();
+    });
+
+    // DELETE LOCATION BUTTON
+    $("#locations-table tbody").on("click", ".btn-del", function (e) {
+        e.stopPropagation();
+
+        const row = $(this).parents("tr");
+        locationData = locationTable.row(row).data();
+
+        checkDeleteLocation();
     });
 
     // DELETE LOCATION CONFIRM

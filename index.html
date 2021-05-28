@@ -333,12 +333,61 @@
                 </div>
             </div>
 
+            <!-- LOCATION DETAILS MODAL -->
+            <div
+                class="modal fade"
+                id="locDetailsModal"
+                tabindex="-1"
+                aria-labelledby="locDetailsLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- HEADER -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="locDetailsLabel">
+                                Location Details
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+
+                        <!-- BODY -->
+                        <div class="modal-body">
+                            <h6>Name</h6>
+                            <p id="locDetailsName"></p>
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="modal-footer">
+                            <button
+                                id="locDetailsEdit"
+                                type="button"
+                                class="btn btn-edit btn-tbl btn-outline-dark"
+                                data-bs-dismiss="modal"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                id="locDetailsDelete"
+                                type="button"
+                                class="btn btn-del btn-tbl btn-outline-danger"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- EDIT LOCATION MODAL -->
             <div
                 class="modal fade"
                 id="editLocModal"
-                data-bs-backdrop="static"
-                data-bs-keyboard="false"
                 tabindex="-1"
                 aria-labelledby="editLocLabel"
                 aria-hidden="true"
@@ -406,8 +455,6 @@
             <div
                 class="modal fade"
                 id="delLocModal"
-                data-bs-backdrop="static"
-                data-bs-keyboard="false"
                 tabindex="-1"
                 aria-labelledby="delLocLabel"
                 aria-hidden="true"
