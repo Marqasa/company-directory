@@ -1,19 +1,13 @@
-#newEmpBtn,
-#newDepBtn,
-#newLocBtn {
+.btn-new {
     width: 165px;
 }
 
 @media (max-width: 768px) {
-    #newEmpDiv,
-    #newDepDiv,
-    #newLocDiv {
+    .new-div {
         justify-content: center !important;
     }
 
-    #newEmpBtn,
-    #newDepBtn,
-    #newLocBtn {
+    .btn-new {
         width: 100% !important;
     }
 }

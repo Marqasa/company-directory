@@ -22,6 +22,12 @@ function ajaxRequest(url, data, success) {
 
 // ON READY
 $(document).ready(function () {
+    const dom =
+        "<'row d-flex align-items-center'<'col-sm-12 col-md-4 my-1'l>" +
+        "<'col-sm-12 col-md-4 my-1 d-flex justify-content-center'f>" +
+        "<'new-div col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>";
     const actionWidth = "147px";
     const actionButtons =
         '<div class="d-flex flex-nowrap justify-content-center">' +
@@ -36,12 +42,7 @@ $(document).ready(function () {
         responsive: {
             details: false,
         },
-        dom:
-            "<'row d-flex align-items-center'<'col-sm-12 col-md-4 my-1'l>" +
-            "<'col-sm-12 col-md-4 my-1 d-flex justify-content-center'f>" +
-            "<'#newEmpDiv.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
+        dom: dom,
         ajax: function (data, callback, settings) {
             const url = "libs/php/getAllPersonnel.php";
             const success = function (response) {
@@ -73,12 +74,7 @@ $(document).ready(function () {
         responsive: {
             details: false,
         },
-        dom:
-            "<'row d-flex align-items-center'<'col-sm-12 col-md-4 my-1'l>" +
-            "<'col-sm-12 col-md-4 my-1 d-flex justify-content-center'f>" +
-            "<'#newDepDiv.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
+        dom: dom,
         ajax: function (data, callback, settings) {
             const url = "libs/php/getAllDepartments.php";
             const success = function (response) {
@@ -106,12 +102,7 @@ $(document).ready(function () {
         responsive: {
             details: false,
         },
-        dom:
-            "<'row d-flex align-items-center'<'col-sm-12 col-md-4 my-1'l>" +
-            "<'col-sm-12 col-md-4 my-1 d-flex justify-content-center'f>" +
-            "<'#newLocDiv.col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>",
+        dom: dom,
         ajax: function (data, callback, settings) {
             const url = "libs/php/getAllLocations.php";
             const success = function (response) {
@@ -142,9 +133,9 @@ $(document).ready(function () {
         ],
     });
 
-    // NEW EMPLOYEE BUTTON
-    $("#newEmpDiv").html(
-        '<button id="newEmpBtn" class="btn btn-tbl btn-outline-success">New</button>'
+    // NEW BUTTONS
+    $(".new-div").html(
+        '<button class="btn btn-new btn-tbl btn-outline-success">New</button>'
     );
 
     // ===-------------------------------------------------------------------===
@@ -152,11 +143,7 @@ $(document).ready(function () {
     // ===-------------------------------------------------------------------===
 
     // NEW DEPARTMENT BUTTON
-    $("#newDepDiv").html(
-        '<button id="newDepBtn" class="btn btn-tbl btn-outline-success">New</button>'
-    );
-
-    $("#newDepBtn").on("click", function () {
+    $("#department-table_wrapper").on("click", ".btn-new", function () {
         $("#newDepName").val("");
         $("#newDepLoc").val("");
         $("#newDepForm").removeClass("was-validated");
@@ -250,11 +237,7 @@ $(document).ready(function () {
     // ===-------------------------------------------------------------------===
 
     // NEW LOCATION BUTTON
-    $("#newLocDiv").html(
-        '<button id="newLocBtn" class="btn btn-tbl btn-outline-success">New</button>'
-    );
-
-    $("#newLocBtn").on("click", function () {
+    $("#location-table_wrapper").on("click", ".btn-new", function () {
         $("#newLocName").val("");
         $("#newLocForm").removeClass("was-validated");
         $("#newLocModal").modal("show");
