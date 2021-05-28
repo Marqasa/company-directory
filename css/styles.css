@@ -22,15 +22,11 @@ table {
     width: 100%;
 }
 
-tr {
-    cursor: pointer;
-}
-
 .btn-tbl {
     border-color: #ced4da !important;
 }
 
-.toast {
+.toast-container {
     z-index: 9999;
 }
 
