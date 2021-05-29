@@ -226,6 +226,11 @@ $(document).ready(function () {
         editEmployee();
     });
 
+    // DETAILS EDIT DEPARTMENT
+    $("#empDetailsEdit").on("click", function () {
+        editEmployee();
+    });
+
     // EDIT EMPLOYEE SAVE
     $("#editEmpSave").on("click", function () {
         const form = document.getElementById("editEmpForm");
@@ -279,6 +284,11 @@ $(document).ready(function () {
         $("#delEmpModal").modal("show");
     });
 
+    // DETAILS DELETE DEPARTMENT
+    $("#empDetailsDelete").on("click", function () {
+        $("#delEmpModal").modal("show");
+    });
+
     // DELETE EMPLOYEE CONFIRM
     $("#delEmpConfirm").on("click", function () {
         const url = "libs/php/deleteEmployeeByID.php";
@@ -299,6 +309,28 @@ $(document).ready(function () {
         };
 
         ajaxRequest(url, data, success);
+    });
+
+    // EMPLOYEE DETAILS
+    $("#personnel-table tbody").on("click", "tr", function () {
+        employeeData = personnelTable.row($(this)).data();
+
+        const firstName = employeeData.firstName ? employeeData.firstName : "~";
+        const lastName = employeeData.lastName ? employeeData.lastName : "~";
+        const email = employeeData.email ? employeeData.email : "~";
+        const jobTitle = employeeData.jobTitle ? employeeData.jobTitle : "~";
+        const department = employeeData.department
+            ? employeeData.department
+            : "~";
+        const location = employeeData.location ? employeeData.location : "~";
+
+        $("#empDetailsFirst").text(firstName);
+        $("#empDetailsLast").text(lastName);
+        $("#empDetailsEmail").text(email);
+        $("#empDetailsJob").text(jobTitle);
+        $("#empDetailsDep").text(department);
+        $("#empDetailsLoc").text(location);
+        $("#empDetailsModal").modal("show");
     });
 
     // ===-------------------------------------------------------------------===

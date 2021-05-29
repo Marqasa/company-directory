@@ -488,6 +488,68 @@
                 </div>
             </div>
 
+            <!-- EMPLOYEE DETAILS MODAL -->
+            <div
+                class="modal fade"
+                id="empDetailsModal"
+                tabindex="-1"
+                aria-labelledby="empDetailsLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-fullscreen-sm-down">
+                    <div class="modal-content">
+                        <!-- HEADER -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="empDetailsLabel">
+                                Employee Details
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+
+                        <!-- BODY -->
+                        <div class="modal-body">
+                            <h6>First Name</h6>
+                            <p id="empDetailsFirst" class="border-bottom"></p>
+                            <h6>Last Name</h6>
+                            <p id="empDetailsLast" class="border-bottom"></p>
+                            <h6>Email</h6>
+                            <p id="empDetailsEmail" class="border-bottom"></p>
+                            <h6>Job Title</h6>
+                            <p id="empDetailsJob" class="border-bottom"></p>
+                            <h6>Department</h6>
+                            <p id="empDetailsDep" class="border-bottom"></p>
+                            <h6>Location</h6>
+                            <p id="empDetailsLoc" class="border-bottom"></p>
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="modal-footer">
+                            <button
+                                id="empDetailsEdit"
+                                type="button"
+                                class="btn btn-edit btn-tbl btn-outline-dark"
+                                data-bs-dismiss="modal"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                id="empDetailsDelete"
+                                type="button"
+                                class="btn btn-del btn-tbl btn-outline-danger"
+                                data-bs-dismiss="modal"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- DEPARTMENT DETAILS MODAL -->
             <div
                 class="modal fade"
