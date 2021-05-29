@@ -78,6 +78,17 @@ $(document).ready(function () {
         ajax: function (data, callback, settings) {
             const url = "libs/php/getAllDepartments.php";
             const success = function (response) {
+                $("#newEmpDep").empty();
+                // $("#editEmpDep").empty();
+
+                $.each(response.data, function (i, o) {
+                    const option =
+                        '<option value="' + o.id + '">' + o.name + "</option>";
+
+                    $("#newEmpDep").append(option);
+                    // $("#editEmpDep").append(option);
+                });
+
                 callback(response);
             };
 
@@ -137,6 +148,62 @@ $(document).ready(function () {
     $(".new-div").html(
         '<button class="btn btn-new btn-tbl btn-outline-success">New</button>'
     );
+
+    // ===-------------------------------------------------------------------===
+    // EMPLOYEE
+    // ===-------------------------------------------------------------------===
+
+    // NEW EMPLOYEE BUTTON
+    $("#personnel-table_wrapper").on("click", ".btn-new", function () {
+        $("#newEmpFirst").val("");
+        $("#newEmpLast").val("");
+        $("#newEmpEmail").val("");
+        $("#newEmpJob").val("");
+        $("#newEmpDep").val("");
+        $("#newEmpForm").removeClass("was-validated");
+        $("#newEmpModal").modal("show");
+    });
+
+    // NEW EMPLOYEE SAVE
+    $("#newEmpSave").on("click", function () {
+        const form = document.getElementById("newEmpForm");
+
+        if (form.checkValidity()) {
+            $("#newEmpModal").modal("hide");
+
+            const url = "libs/php/insertEmployee.php";
+            const firstName = $("#newEmpFirst").val();
+            const lastName = $("#newEmpLast").val();
+            const email = $("#newEmpEmail").val();
+            const jobTitle = $("#newEmpJob").val();
+            const departmentId = $("#newEmpDep").val();
+            const data = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                jobTitle: jobTitle,
+                departmentId: departmentId,
+            };
+
+            const success = function (result) {
+                if (result.status.code == 200) {
+                    personnelTable.ajax.reload();
+
+                    $("#successText").text("Employee added successfully.");
+                    $("#successToast").toast("show");
+                } else {
+                    $("#errorText").text(
+                        "There was an error adding the employee."
+                    );
+                    $("#errorToast").toast("show");
+                }
+            };
+
+            ajaxRequest(url, data, success);
+        } else {
+            form.classList.add("was-validated");
+        }
+    });
 
     // ===-------------------------------------------------------------------===
     // DEPARTMENT

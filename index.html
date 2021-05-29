@@ -180,6 +180,135 @@
                 </div>
             </div>
 
+            <!-- NEW EMPLOYEE MODAL -->
+            <div
+                class="modal fade"
+                id="newEmpModal"
+                tabindex="-1"
+                aria-labelledby="newEmpLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-fullscreen-sm-down">
+                    <div class="modal-content">
+                        <!-- HEADER -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="newEmpLabel">
+                                New Employee
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+
+                        <!-- BODY -->
+                        <div class="modal-body">
+                            <form id="newEmpForm">
+                                <fieldset>
+                                    <!-- FIRST NAME -->
+                                    <div class="mb-3">
+                                        <label
+                                            for="newEmpFirst"
+                                            class="form-label"
+                                        >
+                                            First Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="newEmpFirst"
+                                            required
+                                        />
+                                    </div>
+
+                                    <!-- LAST NAME -->
+                                    <div class="mb-3">
+                                        <label
+                                            for="newEmpLast"
+                                            class="form-label"
+                                        >
+                                            Last Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="newEmpLast"
+                                            required
+                                        />
+                                    </div>
+
+                                    <!-- EMAIL -->
+                                    <div class="mb-3">
+                                        <label
+                                            for="newEmpEmail"
+                                            class="form-label"
+                                        >
+                                            Email
+                                        </label>
+                                        <input
+                                            type="email"
+                                            class="form-control"
+                                            id="newEmpEmail"
+                                            required
+                                        />
+                                    </div>
+
+                                    <!-- JOB TITLE -->
+                                    <div class="mb-3">
+                                        <label
+                                            for="newEmpJob"
+                                            class="form-label"
+                                        >
+                                            Job Title
+                                        </label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="newEmpJob"
+                                        />
+                                    </div>
+
+                                    <!-- DEPARTMENT -->
+                                    <div class="mb-3">
+                                        <label
+                                            for="newEmpDep"
+                                            class="form-label"
+                                        >
+                                            Department
+                                        </label>
+                                        <select
+                                            id="newEmpDep"
+                                            class="form-select"
+                                            required
+                                        ></select>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-tbl btn-outline-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                id="newEmpSave"
+                                type="button"
+                                class="btn btn-tbl btn-outline-primary"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- DEPARTMENT DETAILS MODAL -->
             <div
                 class="modal fade"

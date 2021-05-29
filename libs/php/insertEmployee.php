@@ -1,4 +1,5 @@
 <?php
+
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
@@ -18,7 +19,6 @@ if (mysqli_connect_errno()) {
     $output['data'] = [];
 
     mysqli_close($conn);
-
     echo json_encode($output);
 
     exit;
@@ -50,63 +50,16 @@ if (!$result) {
     $output['data'] = [];
 
     mysqli_close($conn);
-
     echo json_encode($output);
 
     exit;
-}
-
-// Get inserted employee
-$query = '
-    SELECT
-        p.id,
-        p.lastName,
-        p.firstName,
-        p.jobTitle,
-        p.email,
-        d.id as departmentId,
-        l.id as locationId
-    FROM
-        personnel p
-    LEFT JOIN
-        department d
-    ON
-        d.id = p.departmentID
-    LEFT JOIN
-        location l
-    ON
-        l.id = d.locationID
-    WHERE
-        p.id = LAST_INSERT_ID()
-    ';
-
-$result = $conn->query($query);
-
-if (!$result) {
-    $output['status']['code'] = "400";
-    $output['status']['name'] = "executed";
-    $output['status']['description'] = "query failed";
-    $output['data'] = [];
-
-    mysqli_close($conn);
-
-    echo json_encode($output);
-
-    exit;
-}
-
-$data = [];
-
-while ($row = mysqli_fetch_assoc($result)) {
-    array_push($data, $row);
 }
 
 $output['status']['code'] = "200";
 $output['status']['name'] = "ok";
 $output['status']['description'] = "success";
 $output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-$output['data'] = $data;
+$output['data'] = [];
 
 mysqli_close($conn);
-
 echo json_encode($output);
