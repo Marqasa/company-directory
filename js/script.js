@@ -28,7 +28,7 @@ $(document).ready(function () {
         "<'new-div col-sm-12 col-md-4 my-1 d-flex justify-content-end'>>" +
         "<'row'<'col-sm-12'tr>>" +
         "<'row d-flex align-items-center'<'col-sm-12 col-md-6 my-1'i><'col-sm-12 col-md-6 my-1'p>>";
-    const actionWidth = "147px";
+    const actionWidth = "113px";
     const actionButtons =
         '<div class="d-flex flex-nowrap justify-content-center">' +
         '<button class="btn btn-edit btn-sm btn-tbl btn-outline-dark me-2">Edit</button>' +
