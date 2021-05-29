@@ -79,14 +79,14 @@ $(document).ready(function () {
             const url = "libs/php/getAllDepartments.php";
             const success = function (response) {
                 $("#newEmpDep").empty();
-                // $("#editEmpDep").empty();
+                $("#editEmpDep").empty();
 
                 $.each(response.data, function (i, o) {
                     const option =
                         '<option value="' + o.id + '">' + o.name + "</option>";
 
                     $("#newEmpDep").append(option);
-                    // $("#editEmpDep").append(option);
+                    $("#editEmpDep").append(option);
                 });
 
                 callback(response);
@@ -209,7 +209,7 @@ $(document).ready(function () {
     // DEPARTMENT
     // ===-------------------------------------------------------------------===
 
-    // NEW DEPARTMENT BUTTON
+    // NEW DEPARTMENT
     $("#department-table_wrapper").on("click", ".btn-new", function () {
         $("#newDepName").val("");
         $("#newDepLoc").val("");
@@ -249,21 +249,27 @@ $(document).ready(function () {
         }
     });
 
-    // DEPARTMENT DETAILS
-    $("#department-table tbody").on("click", "tr", function () {
-        departmentData = departmentTable.row($(this)).data();
-
-        $("#depDetailsName").text(departmentData.name);
-        $("#depDetailsLoc").text(departmentData.location);
-        $("#depDetailsModal").modal("show");
-    });
-
-    // DEPARTMENT DETAILS EDIT BUTTON
-    $("#depDetailsEdit").on("click", function () {
+    // EDIT DEPARTMENT
+    function editDepartment() {
         $("#editDepForm").removeClass("was-validated");
         $("#editDepName").val(departmentData.name);
         $("#editDepLoc").val(departmentData.locationId);
         $("#editDepModal").modal("show");
+    }
+
+    // TABLE EDIT DEPARTMENT
+    $("#department-table tbody").on("click", ".btn-edit", function (e) {
+        e.stopPropagation();
+
+        const row = $(this).parents("tr");
+        departmentData = departmentTable.row(row).data();
+
+        editDepartment();
+    });
+
+    // DETAILS EDIT DEPARTMENT
+    $("#depDetailsEdit").on("click", function () {
+        editDepartment();
     });
 
     // EDIT DEPARTMENT SAVE
@@ -281,6 +287,7 @@ $(document).ready(function () {
 
             const success = function (result) {
                 if (result.status.code == 200) {
+                    personnelTable.ajax.reload();
                     departmentTable.ajax.reload();
 
                     $("#successText").text("Department updated successfully.");
@@ -299,8 +306,8 @@ $(document).ready(function () {
         }
     });
 
-    // CHECK DELETE DEPARTMENT
-    function checkDeleteDepartment() {
+    // DELETE DEPARTMENT
+    function deleteDepartment() {
         const url = "libs/php/getPersonnelByDepartmentID.php";
         const data = { departmentId: departmentData.id };
 
@@ -318,19 +325,19 @@ $(document).ready(function () {
         ajaxRequest(url, data, success);
     }
 
-    // DELETE DEPARTMENT BUTTON
+    // TABLE DELETE DEPARTMENT
     $("#department-table tbody").on("click", ".btn-del", function (e) {
         e.stopPropagation();
 
         const row = $(this).parents("tr");
         departmentData = departmentTable.row(row).data();
 
-        checkDeleteDepartment();
+        deleteDepartment();
     });
 
-    // DEPARTMENT DETAILS DELETE
+    // DETAILS DELETE DEPARTMENT
     $("#depDetailsDelete").on("click", function () {
-        checkDeleteDepartment();
+        deleteDepartment();
     });
 
     // DELETE DEPARTMENT CONFIRM
@@ -355,11 +362,20 @@ $(document).ready(function () {
         ajaxRequest(url, data, success);
     });
 
+    // DEPARTMENT DETAILS
+    $("#department-table tbody").on("click", "tr", function () {
+        departmentData = departmentTable.row($(this)).data();
+
+        $("#depDetailsName").text(departmentData.name);
+        $("#depDetailsLoc").text(departmentData.location);
+        $("#depDetailsModal").modal("show");
+    });
+
     // ===-------------------------------------------------------------------===
     // LOCATION
     // ===-------------------------------------------------------------------===
 
-    // NEW LOCATION BUTTON
+    // NEW LOCATION
     $("#location-table_wrapper").on("click", ".btn-new", function () {
         $("#newLocName").val("");
         $("#newLocForm").removeClass("was-validated");
@@ -397,32 +413,26 @@ $(document).ready(function () {
         }
     });
 
-    // LOCATION DETAILS
-    $("#location-table tbody").on("click", "tr", function () {
-        locationData = locationTable.row($(this)).data();
-
-        $("#locDetailsName").text(locationData.name);
-        $("#locDetailsModal").modal("show");
-    });
-
-    // LOCATION DETAILS EDIT
-    $("#locDetailsEdit").on("click", function () {
+    // EDIT LOCATION
+    function editLocation() {
         $("#editLocForm").removeClass("was-validated");
         $("#editLocName").val(locationData.name);
-        $("#locDetailsModal").modal("hide");
         $("#editLocModal").modal("show");
-    });
+    }
 
-    // EDIT LOCATION BUTTON
+    // TABLE EDIT LOCATION
     $("#location-table tbody").on("click", ".btn-edit", function (e) {
         e.stopPropagation();
 
         const row = $(this).parents("tr");
         locationData = locationTable.row(row).data();
 
-        $("#editLocForm").removeClass("was-validated");
-        $("#editLocName").val(locationData.name);
-        $("#editLocModal").modal("show");
+        editLocation();
+    });
+
+    // DETAILS EDIT LOCATION
+    $("#locDetailsEdit").on("click", function () {
+        editLocation();
     });
 
     // EDIT LOCATION SAVE
@@ -439,6 +449,8 @@ $(document).ready(function () {
 
             const success = function (result) {
                 if (result.status.code == 200) {
+                    personnelTable.ajax.reload();
+                    departmentTable.ajax.reload();
                     locationTable.ajax.reload();
 
                     $("#successText").text("Location updated successfully.");
@@ -457,8 +469,8 @@ $(document).ready(function () {
         }
     });
 
-    // CHECK DELETE LOCATION
-    function checkDeleteLocation() {
+    // DELETE LOCATION
+    function deleteLocation() {
         const url = "libs/php/getDepartmentsByLocationID.php";
         const data = { locationId: locationData.id };
 
@@ -476,19 +488,19 @@ $(document).ready(function () {
         ajaxRequest(url, data, success);
     }
 
-    // LOCATION DETAILS DELETE
-    $("#locDetailsDelete").on("click", function () {
-        checkDeleteLocation();
-    });
-
-    // DELETE LOCATION BUTTON
+    // TABLE DELETE LOCATION
     $("#location-table tbody").on("click", ".btn-del", function (e) {
         e.stopPropagation();
 
         const row = $(this).parents("tr");
         locationData = locationTable.row(row).data();
 
-        checkDeleteLocation();
+        deleteLocation();
+    });
+
+    // DETAILS DELETE LOCATION
+    $("#locDetailsDelete").on("click", function () {
+        deleteLocation();
     });
 
     // DELETE LOCATION CONFIRM
@@ -513,5 +525,13 @@ $(document).ready(function () {
         };
 
         ajaxRequest(url, data, success);
+    });
+
+    // LOCATION DETAILS
+    $("#location-table tbody").on("click", "tr", function () {
+        locationData = locationTable.row($(this)).data();
+
+        $("#locDetailsName").text(locationData.name);
+        $("#locDetailsModal").modal("show");
     });
 });
