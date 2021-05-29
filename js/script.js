@@ -153,7 +153,7 @@ $(document).ready(function () {
     // EMPLOYEE
     // ===-------------------------------------------------------------------===
 
-    // NEW EMPLOYEE BUTTON
+    // NEW EMPLOYEE
     $("#personnel-table_wrapper").on("click", ".btn-new", function () {
         $("#newEmpFirst").val("");
         $("#newEmpLast").val("");
@@ -194,6 +194,70 @@ $(document).ready(function () {
                 } else {
                     $("#errorText").text(
                         "There was an error adding the employee."
+                    );
+                    $("#errorToast").toast("show");
+                }
+            };
+
+            ajaxRequest(url, data, success);
+        } else {
+            form.classList.add("was-validated");
+        }
+    });
+
+    // EDIT EMPLOYEE
+    function editEmployee() {
+        $("#editEmpForm").removeClass("was-validated");
+        $("#editEmpFirst").val(employeeData.firstName);
+        $("#editEmpLast").val(employeeData.lastName);
+        $("#editEmpEmail").val(employeeData.email);
+        $("#editEmpJob").val(employeeData.jobTitle);
+        $("#editEmpDep").val(employeeData.departmentId);
+        $("#editEmpModal").modal("show");
+    }
+
+    // TABLE EDIT EMPLOYEE
+    $("#personnel-table tbody").on("click", ".btn-edit", function (e) {
+        e.stopPropagation();
+
+        const row = $(this).parents("tr");
+        employeeData = personnelTable.row(row).data();
+
+        editEmployee();
+    });
+
+    // EDIT EMPLOYEE SAVE
+    $("#editEmpSave").on("click", function () {
+        const form = document.getElementById("editEmpForm");
+
+        if (form.checkValidity()) {
+            $("#editEmpModal").modal("hide");
+
+            const url = "libs/php/updateEmployeeByID.php";
+            const id = employeeData.id;
+            const firstName = $("#editEmpFirst").val();
+            const lastName = $("#editEmpLast").val();
+            const email = $("#editEmpEmail").val();
+            const jobTitle = $("#editEmpJob").val();
+            const departmentId = $("#editEmpDep").val();
+            const data = {
+                id: id,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                jobTitle: jobTitle,
+                departmentId: departmentId,
+            };
+
+            const success = function (result) {
+                if (result.status.code == 200) {
+                    personnelTable.ajax.reload();
+
+                    $("#successText").text("Employee updated successfully.");
+                    $("#successToast").toast("show");
+                } else {
+                    $("#errorText").text(
+                        "There was an error updating the employee."
                     );
                     $("#errorToast").toast("show");
                 }
