@@ -398,6 +398,56 @@
                 </div>
             </div>
 
+            <!-- DELETE DEPARTMENT MODAL -->
+            <div
+                class="modal fade"
+                id="delDepModal"
+                tabindex="-1"
+                aria-labelledby="delDepLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- HEADER -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="delDepLabel">
+                                Delete Department
+                            </h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+
+                        <!-- BODY -->
+                        <div class="modal-body">
+                            Are you sure you want to delete this department?
+                        </div>
+
+                        <!-- FOOTER -->
+                        <div class="modal-footer">
+                            <button
+                                type="button"
+                                class="btn btn-tbl btn-outline-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                id="delDepConfirm"
+                                type="button"
+                                class="btn btn-tbl btn-outline-danger"
+                                data-bs-dismiss="modal"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- LOCATION DETAILS MODAL -->
             <div
                 class="modal fade"

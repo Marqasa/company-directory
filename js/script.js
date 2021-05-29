@@ -232,6 +232,62 @@ $(document).ready(function () {
         }
     });
 
+    // CHECK DELETE DEPARTMENT
+    function checkDeleteDepartment() {
+        const url = "libs/php/getPersonnelByDepartmentID.php";
+        const data = { departmentId: departmentData.id };
+
+        const success = function (result) {
+            if (result.data.length > 0) {
+                $("#warningText").text(
+                    "Departments cannot be deleted while they have personnel."
+                );
+                $("#warningToast").toast("show");
+            } else {
+                $("#delDepModal").modal("show");
+            }
+        };
+
+        ajaxRequest(url, data, success);
+    }
+
+    // DELETE DEPARTMENT BUTTON
+    $("#department-table tbody").on("click", ".btn-del", function (e) {
+        e.stopPropagation();
+
+        const row = $(this).parents("tr");
+        departmentData = departmentTable.row(row).data();
+
+        checkDeleteDepartment();
+    });
+
+    // DEPARTMENT DETAILS DELETE
+    $("#depDetailsDelete").on("click", function () {
+        checkDeleteDepartment();
+    });
+
+    // DELETE DEPARTMENT CONFIRM
+    $("#delDepConfirm").on("click", function () {
+        const url = "libs/php/deleteDepartmentByID.php";
+        const data = { id: departmentData.id };
+
+        const success = function (result) {
+            if (result.status.code == 200) {
+                departmentTable.ajax.reload();
+
+                $("#successText").text("Department deleted successfully.");
+                $("#successToast").toast("show");
+            } else {
+                $("#errorText").text(
+                    "There was an error deleting the department."
+                );
+                $("#errorToast").toast("show");
+            }
+        };
+
+        ajaxRequest(url, data, success);
+    });
+
     // ===-------------------------------------------------------------------===
     // LOCATION
     // ===-------------------------------------------------------------------===
@@ -355,8 +411,6 @@ $(document).ready(function () {
 
     // LOCATION DETAILS DELETE
     $("#locDetailsDelete").on("click", function () {
-        $("#locDetailsModal").modal("hide");
-
         checkDeleteLocation();
     });
 
