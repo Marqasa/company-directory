@@ -269,6 +269,38 @@ $(document).ready(function () {
         }
     });
 
+    // TABLE DELETE EMPLOYEE
+    $("#personnel-table tbody").on("click", ".btn-del", function (e) {
+        e.stopPropagation();
+
+        const row = $(this).parents("tr");
+        employeeData = personnelTable.row(row).data();
+
+        $("#delEmpModal").modal("show");
+    });
+
+    // DELETE EMPLOYEE CONFIRM
+    $("#delEmpConfirm").on("click", function () {
+        const url = "libs/php/deleteEmployeeByID.php";
+        const data = { id: employeeData.id };
+
+        const success = function (result) {
+            if (result.status.code == 200) {
+                personnelTable.ajax.reload();
+
+                $("#successText").text("Employee deleted successfully.");
+                $("#successToast").toast("show");
+            } else {
+                $("#errorText").text(
+                    "There was an error deleting the employee."
+                );
+                $("#errorToast").toast("show");
+            }
+        };
+
+        ajaxRequest(url, data, success);
+    });
+
     // ===-------------------------------------------------------------------===
     // DEPARTMENT
     // ===-------------------------------------------------------------------===

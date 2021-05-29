@@ -19,7 +19,6 @@ if (mysqli_connect_errno()) {
     $output['data'] = [];
 
     mysqli_close($conn);
-
     echo json_encode($output);
 
     exit;
@@ -40,7 +39,6 @@ if (!$result) {
     $output['data'] = [];
 
     mysqli_close($conn);
-
     echo json_encode($output);
 
     exit;
@@ -53,5 +51,4 @@ $output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000
 $output['data'] = [];
 
 mysqli_close($conn);
-
 echo json_encode($output);
