@@ -315,21 +315,25 @@ $(document).ready(function () {
     $("#personnel-table tbody").on("click", "tr", function () {
         employeeData = personnelTable.row($(this)).data();
 
-        const firstName = employeeData.firstName ? employeeData.firstName : "~";
-        const lastName = employeeData.lastName ? employeeData.lastName : "~";
-        const email = employeeData.email ? employeeData.email : "~";
-        const jobTitle = employeeData.jobTitle ? employeeData.jobTitle : "~";
-        const department = employeeData.department
-            ? employeeData.department
-            : "~";
-        const location = employeeData.location ? employeeData.location : "~";
+        $("#empDetailsFirst").text(
+            employeeData.firstName ? employeeData.firstName : "~"
+        );
+        $("#empDetailsLast").text(
+            employeeData.lastName ? employeeData.lastName : "~"
+        );
+        $("#empDetailsEmail").text(
+            employeeData.email ? employeeData.email : "~"
+        );
+        $("#empDetailsJob").text(
+            employeeData.jobTitle ? employeeData.jobTitle : "~"
+        );
+        $("#empDetailsDep").text(
+            employeeData.department ? employeeData.department : "~"
+        );
+        $("#empDetailsLoc").text(
+            employeeData.location ? employeeData.location : "~"
+        );
 
-        $("#empDetailsFirst").text(firstName);
-        $("#empDetailsLast").text(lastName);
-        $("#empDetailsEmail").text(email);
-        $("#empDetailsJob").text(jobTitle);
-        $("#empDetailsDep").text(department);
-        $("#empDetailsLoc").text(location);
         $("#empDetailsModal").modal("show");
     });
 
@@ -494,8 +498,13 @@ $(document).ready(function () {
     $("#department-table tbody").on("click", "tr", function () {
         departmentData = departmentTable.row($(this)).data();
 
-        $("#depDetailsName").text(departmentData.name);
-        $("#depDetailsLoc").text(departmentData.location);
+        $("#depDetailsName").text(
+            departmentData.name ? departmentData.name : "~"
+        );
+        $("#depDetailsLoc").text(
+            departmentData.location ? departmentData.location : "~"
+        );
+
         $("#depDetailsModal").modal("show");
     });
 
@@ -659,7 +668,8 @@ $(document).ready(function () {
     $("#location-table tbody").on("click", "tr", function () {
         locationData = locationTable.row($(this)).data();
 
-        $("#locDetailsName").text(locationData.name);
+        $("#locDetailsName").text(locationData.name ? locationData.name : "~");
+
         $("#locDetailsModal").modal("show");
     });
 });
