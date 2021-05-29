@@ -446,7 +446,7 @@ $(document).ready(function () {
         const success = function (result) {
             if (result.data.length > 0) {
                 $("#warningText").text(
-                    "Departments cannot be deleted while they have personnel."
+                    "Departments cannot be deleted while they have personnel assigned."
                 );
                 $("#warningToast").toast("show");
             } else {
@@ -614,7 +614,7 @@ $(document).ready(function () {
         const success = function (result) {
             if (result.data.length > 0) {
                 $("#warningText").text(
-                    "Locations cannot be deleted while they have departments."
+                    "Locations cannot be deleted while they have departments assigned."
                 );
                 $("#warningToast").toast("show");
             } else {
