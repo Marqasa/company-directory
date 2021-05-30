@@ -672,4 +672,10 @@ $(document).ready(function () {
 
         $("#locDetailsModal").modal("show");
     });
+
+    $("#preloader")
+        .delay(200)
+        .fadeOut("slow", function () {
+            $(this).remove();
+        });
 });
