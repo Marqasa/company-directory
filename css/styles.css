@@ -16,8 +16,13 @@ table {
     width: 100%;
 }
 
-tr {
+tr,
+.form-select {
     cursor: pointer;
+}
+
+.sorting_disabled {
+    cursor: default !important;
 }
 
 .btn-tbl {
