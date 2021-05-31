@@ -21,6 +21,10 @@ tr,
     cursor: pointer;
 }
 
+.sorting:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
 .sorting_disabled {
     cursor: default !important;
 }
